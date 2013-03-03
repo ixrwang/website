@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>name.ixr</groupId>
+        <artifactId>website-project</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../website-project</relativePath>
+    </parent>
+    <groupId>name.ixr</groupId>
+    <artifactId>website-app</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>website-app</name>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${springframework}</version>
+        </dependency>
+    </dependencies>
+</project>
