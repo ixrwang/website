@@ -6,8 +6,10 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>website</name>
+    
     <modules>
         <module>website-project</module>
         <module>website-app</module>
+        <module>website-web</module>
     </modules>
 </project>
