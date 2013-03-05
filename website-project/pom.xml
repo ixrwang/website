@@ -26,6 +26,12 @@
             <version>${junit}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${springframework}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     
     <build>
