@@ -4,6 +4,7 @@
  */
 package name.ixr.website.app;
 
+import java.util.List;
 import name.ixr.website.app.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -28,7 +29,8 @@ public class UserService {
      */
     public User login(String account,String password) {
         String sql = "SELECT * FROM t_user WHERE account=? AND password=?";
-        return jdbcTemplate.queryForObject(sql,new Object[]{account,password}, new BeanPropertyRowMapper<>(User.class));
+        List<User> list = jdbcTemplate.query(sql,new Object[]{account,password}, new BeanPropertyRowMapper<>(User.class));
+        return list.isEmpty() ? null : list.get(0);
     }
     
     /**
