@@ -15,7 +15,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <springframework>3.2.1.RELEASE</springframework>
-        <junit>3.8.1</junit>
+        <junit>4.11</junit>
         <project.build.javaVersion>1.7</project.build.javaVersion>
     </properties>
     
@@ -31,6 +31,11 @@
             <artifactId>spring-test</artifactId>
             <version>${springframework}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.2</version>
         </dependency>
     </dependencies>
     

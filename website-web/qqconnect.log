@@ -1,0 +1,357 @@
+150084 DEBUG [2013-03-05 21:25:43]  Successfully completed request
+150190 DEBUG [2013-03-05 21:25:43]  DispatcherServlet with name 'website-web' processing GET request for [/favicon.ico]
+150190 DEBUG [2013-03-05 21:25:43]  Looking up handler method for path /favicon.ico
+150190 DEBUG [2013-03-05 21:25:43]  Did not find handler method for [/favicon.ico]
+150190 WARN  [2013-03-05 21:25:43]  No mapping found for HTTP request with URI [/favicon.ico] in DispatcherServlet with name 'website-web'
+150191 DEBUG [2013-03-05 21:25:43]  Successfully completed request
+151273 DEBUG [2013-03-05 21:25:44]  DispatcherServlet with name 'website-web' processing GET request for [/oauth/qq_login]
+151273 DEBUG [2013-03-05 21:25:44]  Looking up handler method for path /oauth/qq_login
+151274 DEBUG [2013-03-05 21:25:44]  Returning handler method [public java.lang.String name.ixr.website.web.OAuthController.qq_login(javax.servlet.http.HttpServletRequest) throws com.qq.connect.QQConnectException]
+151274 DEBUG [2013-03-05 21:25:44]  Returning cached instance of singleton bean 'OAuthController'
+151274 DEBUG [2013-03-05 21:25:44]  Last-Modified value for [/oauth/qq_login] is: -1
+151274 DEBUG [2013-03-05 21:25:44]  Parsed cookie value [zh_CN] into locale 'zh_CN'
+151275 DEBUG [2013-03-05 21:25:44]  Requested media types are [text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8] based on Accept header types and producible media types [*/*])
+151275 DEBUG [2013-03-05 21:25:44]  Returning redirect view [org.springframework.web.servlet.view.RedirectView: name 'redirect:https://graph.qq.com/oauth2.0/authorize?client_id=100387349&redirect_uri=http://www.ixr.name/oauth/qq_login_back&response_type=code&state=573c1f6ab6fe6b1ecd33bb522b219400&scope=get_user_info'; URL [https://graph.qq.com/oauth2.0/authorize?client_id=100387349&redirect_uri=http://www.ixr.name/oauth/qq_login_back&response_type=code&state=573c1f6ab6fe6b1ecd33bb522b219400&scope=get_user_info]]
+151275 DEBUG [2013-03-05 21:25:44]  Rendering view [org.springframework.web.servlet.view.RedirectView: name 'redirect:https://graph.qq.com/oauth2.0/authorize?client_id=100387349&redirect_uri=http://www.ixr.name/oauth/qq_login_back&response_type=code&state=573c1f6ab6fe6b1ecd33bb522b219400&scope=get_user_info'; URL [https://graph.qq.com/oauth2.0/authorize?client_id=100387349&redirect_uri=http://www.ixr.name/oauth/qq_login_back&response_type=code&state=573c1f6ab6fe6b1ecd33bb522b219400&scope=get_user_info]] in DispatcherServlet with name 'website-web'
+151276 DEBUG [2013-03-05 21:25:44]  Successfully completed request
+169947 DEBUG [2013-03-05 21:26:03]  DispatcherServlet with name 'website-web' processing GET request for [/oauth/qq_login_back]
+169948 DEBUG [2013-03-05 21:26:03]  Looking up handler method for path /oauth/qq_login_back
+169948 DEBUG [2013-03-05 21:26:03]  Returning handler method [public java.lang.String name.ixr.website.web.OAuthController.qq_login_back(org.springframework.ui.Model,javax.servlet.http.HttpServletRequest) throws com.qq.connect.QQConnectException]
+169948 DEBUG [2013-03-05 21:26:03]  Returning cached instance of singleton bean 'OAuthController'
+169948 DEBUG [2013-03-05 21:26:03]  Last-Modified value for [/oauth/qq_login_back] is: -1
+170546 DEBUG [2013-03-05 21:26:03]  Parsed cookie value [zh_CN] into locale 'zh_CN'
+170547 DEBUG [2013-03-05 21:26:03]  Requested media types are [text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8] based on Accept header types and producible media types [*/*])
+170547 DEBUG [2013-03-05 21:26:03]  Returning [org.springframework.web.servlet.view.json.MappingJacksonJsonView: name 'org.springframework.web.servlet.view.json.MappingJacksonJsonView#6087c171'] based on requested media type '*/*;q=0.8'
+170547 DEBUG [2013-03-05 21:26:03]  Rendering view [org.springframework.web.servlet.view.json.MappingJacksonJsonView: name 'org.springframework.web.servlet.view.json.MappingJacksonJsonView#6087c171'] in DispatcherServlet with name 'website-web'
+170770 DEBUG [2013-03-05 21:26:03]  Successfully completed request
+170820 DEBUG [2013-03-05 21:26:04]  DispatcherServlet with name 'website-web' processing GET request for [/favicon.ico]
+170820 DEBUG [2013-03-05 21:26:04]  Looking up handler method for path /favicon.ico
+170821 DEBUG [2013-03-05 21:26:04]  Did not find handler method for [/favicon.ico]
+170821 WARN  [2013-03-05 21:26:04]  No mapping found for HTTP request with URI [/favicon.ico] in DispatcherServlet with name 'website-web'
+170821 DEBUG [2013-03-05 21:26:04]  Successfully completed request
+706315 DEBUG [2013-03-05 21:34:59]  DispatcherServlet with name 'website-web' processing GET request for [/ifr_status/]
+706315 DEBUG [2013-03-05 21:34:59]  Looking up handler method for path /ifr_status/
+706316 DEBUG [2013-03-05 21:34:59]  Did not find handler method for [/ifr_status/]
+706316 WARN  [2013-03-05 21:34:59]  No mapping found for HTTP request with URI [/ifr_status/] in DispatcherServlet with name 'website-web'
+706317 DEBUG [2013-03-05 21:34:59]  Successfully completed request
+2084706 DEBUG [2013-03-05 21:57:57]  DispatcherServlet with name 'website-web' processing GET request for [/]
+2084706 DEBUG [2013-03-05 21:57:57]  Looking up handler method for path /
+2084706 DEBUG [2013-03-05 21:57:57]  Returning handler method [public java.lang.String name.ixr.website.web.IndexController.index(org.springframework.ui.Model)]
+2084706 DEBUG [2013-03-05 21:57:57]  Returning cached instance of singleton bean 'indexController'
+2084707 DEBUG [2013-03-05 21:57:57]  Last-Modified value for [/] is: -1
+2084707 DEBUG [2013-03-05 21:57:57]  Parsed cookie value [zh_CN] into locale 'zh_CN'
+2084707 DEBUG [2013-03-05 21:57:57]  Requested media types are [text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8] based on Accept header types and producible media types [*/*])
+2084707 DEBUG [2013-03-05 21:57:57]  Returning [org.springframework.web.servlet.view.freemarker.FreeMarkerView: name '/index'; URL [/index.html]] based on requested media type 'text/html'
+2084707 DEBUG [2013-03-05 21:57:57]  Rendering view [org.springframework.web.servlet.view.freemarker.FreeMarkerView: name '/index'; URL [/index.html]] in DispatcherServlet with name 'website-web'
+2084707 DEBUG [2013-03-05 21:57:57]  Added model object 'springMacroRequestContext' of type [org.springframework.web.servlet.support.RequestContext] to request in view with name '/index'
+2084707 DEBUG [2013-03-05 21:57:57]  Added model object 'message' of type [java.lang.String] to request in view with name '/index'
+2084708 DEBUG [2013-03-05 21:57:57]  Added model object 'request' of type [org.springframework.web.servlet.support.RequestContext] to request in view with name '/index'
+2084708 DEBUG [2013-03-05 21:57:57]  Rendering FreeMarker template [/index.html] in FreeMarkerView '/index'
+2084709 DEBUG [2013-03-05 21:57:57]  "index.html"["zh_CN",utf-8,parsed]  using cached since D:\java\project\website\website-web\src\main\webapp\WEB-INF\view\index.html didn't change.
+2084709 DEBUG [2013-03-05 21:57:57]  "spring.ftl"["zh_CN",utf-8,parsed]  using cached since jar:file:/C:/Users/IXR/.m2/repository/org/springframework/spring-webmvc/3.2.1.RELEASE/spring-webmvc-3.2.1.RELEASE.jar!/org/springframework/web/servlet/view/freemarker/spring.ftl didn't change.
+2084711 DEBUG [2013-03-05 21:57:57]  "common/header.html"["zh_CN",utf-8,parsed]  using cached since D:\java\project\website\website-web\src\main\webapp\WEB-INF\view\common\header.html didn't change.
+2084711 DEBUG [2013-03-05 21:57:57]  Successfully completed request
+2084761 DEBUG [2013-03-05 21:57:57]  DispatcherServlet with name 'website-web' processing GET request for [/resources/themes/blue.css]
+2084761 DEBUG [2013-03-05 21:57:57]  Looking up handler method for path /resources/themes/blue.css
+2084761 DEBUG [2013-03-05 21:57:57]  DispatcherServlet with name 'website-web' processing GET request for [/resources/js/jquery-1.9.1.min.js]
+2084761 DEBUG [2013-03-05 21:57:57]  Looking up handler method for path /resources/js/jquery-1.9.1.min.js
+2084761 DEBUG [2013-03-05 21:57:57]  Did not find handler method for [/resources/themes/blue.css]
+2084761 DEBUG [2013-03-05 21:57:57]  Matching patterns for request [/resources/themes/blue.css] are [/resources/**]
+2084761 DEBUG [2013-03-05 21:57:57]  Did not find handler method for [/resources/js/jquery-1.9.1.min.js]
+2084762 DEBUG [2013-03-05 21:57:57]  URI Template variables for request [/resources/themes/blue.css] are {}
+2084762 DEBUG [2013-03-05 21:57:57]  Matching patterns for request [/resources/js/jquery-1.9.1.min.js] are [/resources/**]
+2084762 DEBUG [2013-03-05 21:57:57]  URI Template variables for request [/resources/js/jquery-1.9.1.min.js] are {}
+2084762 DEBUG [2013-03-05 21:57:57]  Mapping [/resources/js/jquery-1.9.1.min.js] to HandlerExecutionChain with handler [org.springframework.web.servlet.resource.ResourceHttpRequestHandler@2660a55c] and 1 interceptor
+2084762 DEBUG [2013-03-05 21:57:57]  Last-Modified value for [/resources/js/jquery-1.9.1.min.js] is: -1
+2084762 DEBUG [2013-03-05 21:57:57]  Trying relative path [js/jquery-1.9.1.min.js] against base location: ServletContext resource [/resources/]
+2084762 DEBUG [2013-03-05 21:57:57]  Mapping [/resources/themes/blue.css] to HandlerExecutionChain with handler [org.springframework.web.servlet.resource.ResourceHttpRequestHandler@2660a55c] and 1 interceptor
+2084762 DEBUG [2013-03-05 21:57:57]  Last-Modified value for [/resources/themes/blue.css] is: -1
+2084762 DEBUG [2013-03-05 21:57:57]  Found matching resource: ServletContext resource [/resources/js/jquery-1.9.1.min.js]
+2084762 DEBUG [2013-03-05 21:57:57]  Determined media type 'application/x-javascript' for ServletContext resource [/resources/js/jquery-1.9.1.min.js]
+2084762 DEBUG [2013-03-05 21:57:57]  Trying relative path [themes/blue.css] against base location: ServletContext resource [/resources/]
+2084763 DEBUG [2013-03-05 21:57:57]  Found matching resource: ServletContext resource [/resources/themes/blue.css]
+2084763 DEBUG [2013-03-05 21:57:57]  Resource not modified - returning 304
+2084763 DEBUG [2013-03-05 21:57:57]  Null ModelAndView returned to DispatcherServlet with name 'website-web': assuming HandlerAdapter completed request handling
+2084763 DEBUG [2013-03-05 21:57:57]  Successfully completed request
+2084763 DEBUG [2013-03-05 21:57:57]  Determined media type 'text/css' for ServletContext resource [/resources/themes/blue.css]
+2084763 DEBUG [2013-03-05 21:57:57]  Resource not modified - returning 304
+2084763 DEBUG [2013-03-05 21:57:57]  Null ModelAndView returned to DispatcherServlet with name 'website-web': assuming HandlerAdapter completed request handling
+2084763 DEBUG [2013-03-05 21:57:57]  Successfully completed request
+2084835 DEBUG [2013-03-05 21:57:58]  DispatcherServlet with name 'website-web' processing GET request for [/favicon.ico]
+2084835 DEBUG [2013-03-05 21:57:58]  Looking up handler method for path /favicon.ico
+2084835 DEBUG [2013-03-05 21:57:58]  Did not find handler method for [/favicon.ico]
+2084835 WARN  [2013-03-05 21:57:58]  No mapping found for HTTP request with URI [/favicon.ico] in DispatcherServlet with name 'website-web'
+2084835 DEBUG [2013-03-05 21:57:58]  Successfully completed request
+2086214 DEBUG [2013-03-05 21:57:59]  DispatcherServlet with name 'website-web' processing GET request for [/]
+2086214 DEBUG [2013-03-05 21:57:59]  Looking up handler method for path /
+2086214 DEBUG [2013-03-05 21:57:59]  Returning handler method [public java.lang.String name.ixr.website.web.IndexController.index(org.springframework.ui.Model)]
+2086214 DEBUG [2013-03-05 21:57:59]  Returning cached instance of singleton bean 'indexController'
+2086215 DEBUG [2013-03-05 21:57:59]  Last-Modified value for [/] is: -1
+2086215 DEBUG [2013-03-05 21:57:59]  Parsed cookie value [zh_CN] into locale 'zh_CN'
+2086216 DEBUG [2013-03-05 21:57:59]  Requested media types are [text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8] based on Accept header types and producible media types [*/*])
+2086216 DEBUG [2013-03-05 21:57:59]  Returning [org.springframework.web.servlet.view.freemarker.FreeMarkerView: name '/index'; URL [/index.html]] based on requested media type 'text/html'
+2086216 DEBUG [2013-03-05 21:57:59]  Rendering view [org.springframework.web.servlet.view.freemarker.FreeMarkerView: name '/index'; URL [/index.html]] in DispatcherServlet with name 'website-web'
+2086216 DEBUG [2013-03-05 21:57:59]  Added model object 'springMacroRequestContext' of type [org.springframework.web.servlet.support.RequestContext] to request in view with name '/index'
+2086216 DEBUG [2013-03-05 21:57:59]  Added model object 'message' of type [java.lang.String] to request in view with name '/index'
+2086216 DEBUG [2013-03-05 21:57:59]  Added model object 'request' of type [org.springframework.web.servlet.support.RequestContext] to request in view with name '/index'
+2086216 DEBUG [2013-03-05 21:57:59]  Rendering FreeMarker template [/index.html] in FreeMarkerView '/index'
+2086217 DEBUG [2013-03-05 21:57:59]  "index.html"["zh_CN",utf-8,parsed]  cached copy not yet stale; using cached.
+2086217 DEBUG [2013-03-05 21:57:59]  "spring.ftl"["zh_CN",utf-8,parsed]  cached copy not yet stale; using cached.
+2086217 DEBUG [2013-03-05 21:57:59]  "common/header.html"["zh_CN",utf-8,parsed]  cached copy not yet stale; using cached.
+2086218 DEBUG [2013-03-05 21:57:59]  Successfully completed request
+2086246 DEBUG [2013-03-05 21:57:59]  DispatcherServlet with name 'website-web' processing GET request for [/resources/themes/blue.css]
+2086246 DEBUG [2013-03-05 21:57:59]  Looking up handler method for path /resources/themes/blue.css
+2086247 DEBUG [2013-03-05 21:57:59]  DispatcherServlet with name 'website-web' processing GET request for [/resources/js/jquery-1.9.1.min.js]
+2086247 DEBUG [2013-03-05 21:57:59]  Looking up handler method for path /resources/js/jquery-1.9.1.min.js
+2086247 DEBUG [2013-03-05 21:57:59]  Did not find handler method for [/resources/themes/blue.css]
+2086247 DEBUG [2013-03-05 21:57:59]  Matching patterns for request [/resources/themes/blue.css] are [/resources/**]
+2086247 DEBUG [2013-03-05 21:57:59]  URI Template variables for request [/resources/themes/blue.css] are {}
+2086248 DEBUG [2013-03-05 21:57:59]  Mapping [/resources/themes/blue.css] to HandlerExecutionChain with handler [org.springframework.web.servlet.resource.ResourceHttpRequestHandler@2660a55c] and 1 interceptor
+2086248 DEBUG [2013-03-05 21:57:59]  Last-Modified value for [/resources/themes/blue.css] is: -1
+2086248 DEBUG [2013-03-05 21:57:59]  Trying relative path [themes/blue.css] against base location: ServletContext resource [/resources/]
+2086248 DEBUG [2013-03-05 21:57:59]  Found matching resource: ServletContext resource [/resources/themes/blue.css]
+2086249 DEBUG [2013-03-05 21:57:59]  Determined media type 'text/css' for ServletContext resource [/resources/themes/blue.css]
+2086247 DEBUG [2013-03-05 21:57:59]  Did not find handler method for [/resources/js/jquery-1.9.1.min.js]
+2086249 DEBUG [2013-03-05 21:57:59]  Matching patterns for request [/resources/js/jquery-1.9.1.min.js] are [/resources/**]
+2086249 DEBUG [2013-03-05 21:57:59]  URI Template variables for request [/resources/js/jquery-1.9.1.min.js] are {}
+2086249 DEBUG [2013-03-05 21:57:59]  Resource not modified - returning 304
+2086250 DEBUG [2013-03-05 21:57:59]  Null ModelAndView returned to DispatcherServlet with name 'website-web': assuming HandlerAdapter completed request handling
+2086250 DEBUG [2013-03-05 21:57:59]  Mapping [/resources/js/jquery-1.9.1.min.js] to HandlerExecutionChain with handler [org.springframework.web.servlet.resource.ResourceHttpRequestHandler@2660a55c] and 1 interceptor
+2086250 DEBUG [2013-03-05 21:57:59]  Successfully completed request
+2086250 DEBUG [2013-03-05 21:57:59]  Last-Modified value for [/resources/js/jquery-1.9.1.min.js] is: -1
+2086250 DEBUG [2013-03-05 21:57:59]  Trying relative path [js/jquery-1.9.1.min.js] against base location: ServletContext resource [/resources/]
+2086251 DEBUG [2013-03-05 21:57:59]  Found matching resource: ServletContext resource [/resources/js/jquery-1.9.1.min.js]
+2086251 DEBUG [2013-03-05 21:57:59]  Determined media type 'application/x-javascript' for ServletContext resource [/resources/js/jquery-1.9.1.min.js]
+2086252 DEBUG [2013-03-05 21:57:59]  Resource not modified - returning 304
+2086252 DEBUG [2013-03-05 21:57:59]  Null ModelAndView returned to DispatcherServlet with name 'website-web': assuming HandlerAdapter completed request handling
+2086252 DEBUG [2013-03-05 21:57:59]  Successfully completed request
+2086276 DEBUG [2013-03-05 21:57:59]  DispatcherServlet with name 'website-web' processing GET request for [/favicon.ico]
+2086276 DEBUG [2013-03-05 21:57:59]  Looking up handler method for path /favicon.ico
+2086276 DEBUG [2013-03-05 21:57:59]  Did not find handler method for [/favicon.ico]
+2086277 WARN  [2013-03-05 21:57:59]  No mapping found for HTTP request with URI [/favicon.ico] in DispatcherServlet with name 'website-web'
+2086277 DEBUG [2013-03-05 21:57:59]  Successfully completed request
+2086779 DEBUG [2013-03-05 21:58:00]  DispatcherServlet with name 'website-web' processing GET request for [/]
+2086779 DEBUG [2013-03-05 21:58:00]  Looking up handler method for path /
+2086779 DEBUG [2013-03-05 21:58:00]  Returning handler method [public java.lang.String name.ixr.website.web.IndexController.index(org.springframework.ui.Model)]
+2086779 DEBUG [2013-03-05 21:58:00]  Returning cached instance of singleton bean 'indexController'
+2086779 DEBUG [2013-03-05 21:58:00]  Last-Modified value for [/] is: -1
+2086780 DEBUG [2013-03-05 21:58:00]  Parsed cookie value [zh_CN] into locale 'zh_CN'
+2086781 DEBUG [2013-03-05 21:58:00]  Requested media types are [text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8] based on Accept header types and producible media types [*/*])
+2086781 DEBUG [2013-03-05 21:58:00]  Returning [org.springframework.web.servlet.view.freemarker.FreeMarkerView: name '/index'; URL [/index.html]] based on requested media type 'text/html'
+2086781 DEBUG [2013-03-05 21:58:00]  Rendering view [org.springframework.web.servlet.view.freemarker.FreeMarkerView: name '/index'; URL [/index.html]] in DispatcherServlet with name 'website-web'
+2086781 DEBUG [2013-03-05 21:58:00]  Added model object 'springMacroRequestContext' of type [org.springframework.web.servlet.support.RequestContext] to request in view with name '/index'
+2086782 DEBUG [2013-03-05 21:58:00]  Added model object 'message' of type [java.lang.String] to request in view with name '/index'
+2086782 DEBUG [2013-03-05 21:58:00]  Added model object 'request' of type [org.springframework.web.servlet.support.RequestContext] to request in view with name '/index'
+2086782 DEBUG [2013-03-05 21:58:00]  Rendering FreeMarker template [/index.html] in FreeMarkerView '/index'
+2086782 DEBUG [2013-03-05 21:58:00]  "index.html"["zh_CN",utf-8,parsed]  cached copy not yet stale; using cached.
+2086782 DEBUG [2013-03-05 21:58:00]  "spring.ftl"["zh_CN",utf-8,parsed]  cached copy not yet stale; using cached.
+2086783 DEBUG [2013-03-05 21:58:00]  "common/header.html"["zh_CN",utf-8,parsed]  cached copy not yet stale; using cached.
+2086784 DEBUG [2013-03-05 21:58:00]  Successfully completed request
+2086803 DEBUG [2013-03-05 21:58:00]  DispatcherServlet with name 'website-web' processing GET request for [/resources/themes/blue.css]
+2086803 DEBUG [2013-03-05 21:58:00]  Looking up handler method for path /resources/themes/blue.css
+2086803 DEBUG [2013-03-05 21:58:00]  DispatcherServlet with name 'website-web' processing GET request for [/resources/js/jquery-1.9.1.min.js]
+2086803 DEBUG [2013-03-05 21:58:00]  Looking up handler method for path /resources/js/jquery-1.9.1.min.js
+2086803 DEBUG [2013-03-05 21:58:00]  Did not find handler method for [/resources/themes/blue.css]
+2086804 DEBUG [2013-03-05 21:58:00]  Matching patterns for request [/resources/themes/blue.css] are [/resources/**]
+2086804 DEBUG [2013-03-05 21:58:00]  URI Template variables for request [/resources/themes/blue.css] are {}
+2086804 DEBUG [2013-03-05 21:58:00]  Mapping [/resources/themes/blue.css] to HandlerExecutionChain with handler [org.springframework.web.servlet.resource.ResourceHttpRequestHandler@2660a55c] and 1 interceptor
+2086804 DEBUG [2013-03-05 21:58:00]  Did not find handler method for [/resources/js/jquery-1.9.1.min.js]
+2086804 DEBUG [2013-03-05 21:58:00]  Last-Modified value for [/resources/themes/blue.css] is: -1
+2086804 DEBUG [2013-03-05 21:58:00]  Matching patterns for request [/resources/js/jquery-1.9.1.min.js] are [/resources/**]
+2086804 DEBUG [2013-03-05 21:58:00]  Trying relative path [themes/blue.css] against base location: ServletContext resource [/resources/]
+2086804 DEBUG [2013-03-05 21:58:00]  URI Template variables for request [/resources/js/jquery-1.9.1.min.js] are {}
+2086804 DEBUG [2013-03-05 21:58:00]  Mapping [/resources/js/jquery-1.9.1.min.js] to HandlerExecutionChain with handler [org.springframework.web.servlet.resource.ResourceHttpRequestHandler@2660a55c] and 1 interceptor
+2086804 DEBUG [2013-03-05 21:58:00]  Last-Modified value for [/resources/js/jquery-1.9.1.min.js] is: -1
+2086804 DEBUG [2013-03-05 21:58:00]  Trying relative path [js/jquery-1.9.1.min.js] against base location: ServletContext resource [/resources/]
+2086804 DEBUG [2013-03-05 21:58:00]  Found matching resource: ServletContext resource [/resources/themes/blue.css]
+2086805 DEBUG [2013-03-05 21:58:00]  Determined media type 'text/css' for ServletContext resource [/resources/themes/blue.css]
+2086805 DEBUG [2013-03-05 21:58:00]  Found matching resource: ServletContext resource [/resources/js/jquery-1.9.1.min.js]
+2086805 DEBUG [2013-03-05 21:58:00]  Determined media type 'application/x-javascript' for ServletContext resource [/resources/js/jquery-1.9.1.min.js]
+2086805 DEBUG [2013-03-05 21:58:00]  Resource not modified - returning 304
+2086805 DEBUG [2013-03-05 21:58:00]  Null ModelAndView returned to DispatcherServlet with name 'website-web': assuming HandlerAdapter completed request handling
+2086805 DEBUG [2013-03-05 21:58:00]  Successfully completed request
+2086806 DEBUG [2013-03-05 21:58:00]  Resource not modified - returning 304
+2086806 DEBUG [2013-03-05 21:58:00]  Null ModelAndView returned to DispatcherServlet with name 'website-web': assuming HandlerAdapter completed request handling
+2086806 DEBUG [2013-03-05 21:58:00]  Successfully completed request
+2086829 DEBUG [2013-03-05 21:58:00]  DispatcherServlet with name 'website-web' processing GET request for [/favicon.ico]
+2086829 DEBUG [2013-03-05 21:58:00]  Looking up handler method for path /favicon.ico
+2086829 DEBUG [2013-03-05 21:58:00]  Did not find handler method for [/favicon.ico]
+2086829 WARN  [2013-03-05 21:58:00]  No mapping found for HTTP request with URI [/favicon.ico] in DispatcherServlet with name 'website-web'
+2086829 DEBUG [2013-03-05 21:58:00]  Successfully completed request
+2096554 DEBUG [2013-03-05 21:58:09]  DispatcherServlet with name 'website-web' processing GET request for [/]
+2096554 DEBUG [2013-03-05 21:58:09]  Looking up handler method for path /
+2096554 DEBUG [2013-03-05 21:58:09]  Returning handler method [public java.lang.String name.ixr.website.web.IndexController.index(org.springframework.ui.Model)]
+2096554 DEBUG [2013-03-05 21:58:09]  Returning cached instance of singleton bean 'indexController'
+2096554 DEBUG [2013-03-05 21:58:09]  Last-Modified value for [/] is: -1
+2096555 DEBUG [2013-03-05 21:58:09]  Parsed cookie value [zh_CN] into locale 'zh_CN'
+2096556 DEBUG [2013-03-05 21:58:09]  Requested media types are [text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8] based on Accept header types and producible media types [*/*])
+2096556 DEBUG [2013-03-05 21:58:09]  Returning [org.springframework.web.servlet.view.freemarker.FreeMarkerView: name '/index'; URL [/index.html]] based on requested media type 'text/html'
+2096556 DEBUG [2013-03-05 21:58:09]  Rendering view [org.springframework.web.servlet.view.freemarker.FreeMarkerView: name '/index'; URL [/index.html]] in DispatcherServlet with name 'website-web'
+2096556 DEBUG [2013-03-05 21:58:09]  Added model object 'springMacroRequestContext' of type [org.springframework.web.servlet.support.RequestContext] to request in view with name '/index'
+2096557 DEBUG [2013-03-05 21:58:09]  Added model object 'message' of type [java.lang.String] to request in view with name '/index'
+2096557 DEBUG [2013-03-05 21:58:09]  Added model object 'request' of type [org.springframework.web.servlet.support.RequestContext] to request in view with name '/index'
+2096557 DEBUG [2013-03-05 21:58:09]  Rendering FreeMarker template [/index.html] in FreeMarkerView '/index'
+2096558 DEBUG [2013-03-05 21:58:09]  "index.html"["zh_CN",utf-8,parsed]  using cached since D:\java\project\website\website-web\src\main\webapp\WEB-INF\view\index.html didn't change.
+2096560 DEBUG [2013-03-05 21:58:09]  "spring.ftl"["zh_CN",utf-8,parsed]  using cached since jar:file:/C:/Users/IXR/.m2/repository/org/springframework/spring-webmvc/3.2.1.RELEASE/spring-webmvc-3.2.1.RELEASE.jar!/org/springframework/web/servlet/view/freemarker/spring.ftl didn't change.
+2096562 DEBUG [2013-03-05 21:58:09]  "common/header.html"["zh_CN",utf-8,parsed]  using cached since D:\java\project\website\website-web\src\main\webapp\WEB-INF\view\common\header.html didn't change.
+2096563 DEBUG [2013-03-05 21:58:09]  Successfully completed request
+2096580 DEBUG [2013-03-05 21:58:09]  DispatcherServlet with name 'website-web' processing GET request for [/resources/themes/blue.css]
+2096580 DEBUG [2013-03-05 21:58:09]  Looking up handler method for path /resources/themes/blue.css
+2096580 DEBUG [2013-03-05 21:58:09]  DispatcherServlet with name 'website-web' processing GET request for [/resources/js/jquery-1.9.1.min.js]
+2096580 DEBUG [2013-03-05 21:58:09]  Looking up handler method for path /resources/js/jquery-1.9.1.min.js
+2096580 DEBUG [2013-03-05 21:58:09]  Did not find handler method for [/resources/themes/blue.css]
+2096580 DEBUG [2013-03-05 21:58:09]  Matching patterns for request [/resources/themes/blue.css] are [/resources/**]
+2096580 DEBUG [2013-03-05 21:58:09]  Did not find handler method for [/resources/js/jquery-1.9.1.min.js]
+2096580 DEBUG [2013-03-05 21:58:09]  URI Template variables for request [/resources/themes/blue.css] are {}
+2096581 DEBUG [2013-03-05 21:58:09]  Mapping [/resources/themes/blue.css] to HandlerExecutionChain with handler [org.springframework.web.servlet.resource.ResourceHttpRequestHandler@2660a55c] and 1 interceptor
+2096581 DEBUG [2013-03-05 21:58:09]  Matching patterns for request [/resources/js/jquery-1.9.1.min.js] are [/resources/**]
+2096581 DEBUG [2013-03-05 21:58:09]  Last-Modified value for [/resources/themes/blue.css] is: -1
+2096581 DEBUG [2013-03-05 21:58:09]  URI Template variables for request [/resources/js/jquery-1.9.1.min.js] are {}
+2096581 DEBUG [2013-03-05 21:58:09]  Mapping [/resources/js/jquery-1.9.1.min.js] to HandlerExecutionChain with handler [org.springframework.web.servlet.resource.ResourceHttpRequestHandler@2660a55c] and 1 interceptor
+2096581 DEBUG [2013-03-05 21:58:09]  Trying relative path [themes/blue.css] against base location: ServletContext resource [/resources/]
+2096581 DEBUG [2013-03-05 21:58:09]  Last-Modified value for [/resources/js/jquery-1.9.1.min.js] is: -1
+2096581 DEBUG [2013-03-05 21:58:09]  Trying relative path [js/jquery-1.9.1.min.js] against base location: ServletContext resource [/resources/]
+2096582 DEBUG [2013-03-05 21:58:09]  Found matching resource: ServletContext resource [/resources/themes/blue.css]
+2096582 DEBUG [2013-03-05 21:58:09]  Determined media type 'text/css' for ServletContext resource [/resources/themes/blue.css]
+2096582 DEBUG [2013-03-05 21:58:09]  Found matching resource: ServletContext resource [/resources/js/jquery-1.9.1.min.js]
+2096582 DEBUG [2013-03-05 21:58:09]  Determined media type 'application/x-javascript' for ServletContext resource [/resources/js/jquery-1.9.1.min.js]
+2096582 DEBUG [2013-03-05 21:58:09]  Resource not modified - returning 304
+2096582 DEBUG [2013-03-05 21:58:09]  Null ModelAndView returned to DispatcherServlet with name 'website-web': assuming HandlerAdapter completed request handling
+2096582 DEBUG [2013-03-05 21:58:09]  Successfully completed request
+2096582 DEBUG [2013-03-05 21:58:09]  Resource not modified - returning 304
+2096582 DEBUG [2013-03-05 21:58:09]  Null ModelAndView returned to DispatcherServlet with name 'website-web': assuming HandlerAdapter completed request handling
+2096582 DEBUG [2013-03-05 21:58:09]  Successfully completed request
+2096610 DEBUG [2013-03-05 21:58:09]  DispatcherServlet with name 'website-web' processing GET request for [/favicon.ico]
+2096610 DEBUG [2013-03-05 21:58:09]  Looking up handler method for path /favicon.ico
+2096610 DEBUG [2013-03-05 21:58:09]  Did not find handler method for [/favicon.ico]
+2096611 WARN  [2013-03-05 21:58:09]  No mapping found for HTTP request with URI [/favicon.ico] in DispatcherServlet with name 'website-web'
+2096611 DEBUG [2013-03-05 21:58:09]  Successfully completed request
+2097133 DEBUG [2013-03-05 21:58:10]  DispatcherServlet with name 'website-web' processing GET request for [/]
+2097133 DEBUG [2013-03-05 21:58:10]  Looking up handler method for path /
+2097134 DEBUG [2013-03-05 21:58:10]  Returning handler method [public java.lang.String name.ixr.website.web.IndexController.index(org.springframework.ui.Model)]
+2097134 DEBUG [2013-03-05 21:58:10]  Returning cached instance of singleton bean 'indexController'
+2097134 DEBUG [2013-03-05 21:58:10]  Last-Modified value for [/] is: -1
+2097134 DEBUG [2013-03-05 21:58:10]  Parsed cookie value [en_US] into locale 'en_US'
+2097135 DEBUG [2013-03-05 21:58:10]  Requested media types are [text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8] based on Accept header types and producible media types [*/*])
+2097135 DEBUG [2013-03-05 21:58:10]  Returning [org.springframework.web.servlet.view.freemarker.FreeMarkerView: name '/index'; URL [/index.html]] based on requested media type 'text/html'
+2097135 DEBUG [2013-03-05 21:58:10]  Rendering view [org.springframework.web.servlet.view.freemarker.FreeMarkerView: name '/index'; URL [/index.html]] in DispatcherServlet with name 'website-web'
+2097135 DEBUG [2013-03-05 21:58:10]  Added model object 'springMacroRequestContext' of type [org.springframework.web.servlet.support.RequestContext] to request in view with name '/index'
+2097135 DEBUG [2013-03-05 21:58:10]  Added model object 'message' of type [java.lang.String] to request in view with name '/index'
+2097136 DEBUG [2013-03-05 21:58:10]  Added model object 'request' of type [org.springframework.web.servlet.support.RequestContext] to request in view with name '/index'
+2097136 DEBUG [2013-03-05 21:58:10]  Rendering FreeMarker template [/index.html] in FreeMarkerView '/index'
+2097136 DEBUG [2013-03-05 21:58:10]  Could not find template in cache, creating new one; id=["index.html"["en_US",utf-8,parsed] ]
+2097137 DEBUG [2013-03-05 21:58:10]  Compiling FreeMarker template "index.html"["en_US",utf-8,parsed]  from "D:\\java\\project\\website\\website-web\\src\\main\\webapp\\WEB-INF\\view\\index.html"
+2097141 DEBUG [2013-03-05 21:58:10]  Could not find template in cache, creating new one; id=["spring.ftl"["en_US",utf-8,parsed] ]
+2097143 DEBUG [2013-03-05 21:58:10]  Compiling FreeMarker template "spring.ftl"["en_US",utf-8,parsed]  from "jar:file:/C:/Users/IXR/.m2/repository/org/springframework/spring-webmvc/3.2.1.RELEASE/spring-webmvc-3.2.1.RELEASE.jar!/org/springframework/web/servlet/view/freemarker/spring.ftl"
+2097176 DEBUG [2013-03-05 21:58:10]  Could not find template in cache, creating new one; id=["common/header.html"["en_US",utf-8,parsed] ]
+2097177 DEBUG [2013-03-05 21:58:10]  Compiling FreeMarker template "common/header.html"["en_US",utf-8,parsed]  from "D:\\java\\project\\website\\website-web\\src\\main\\webapp\\WEB-INF\\view\\common\\header.html"
+2097179 DEBUG [2013-03-05 21:58:10]  Successfully completed request
+2097191 DEBUG [2013-03-05 21:58:10]  DispatcherServlet with name 'website-web' processing GET request for [/resources/themes/blue.css]
+2097191 DEBUG [2013-03-05 21:58:10]  DispatcherServlet with name 'website-web' processing GET request for [/resources/js/jquery-1.9.1.min.js]
+2097191 DEBUG [2013-03-05 21:58:10]  Looking up handler method for path /resources/themes/blue.css
+2097191 DEBUG [2013-03-05 21:58:10]  Looking up handler method for path /resources/js/jquery-1.9.1.min.js
+2097191 DEBUG [2013-03-05 21:58:10]  Did not find handler method for [/resources/themes/blue.css]
+2097191 DEBUG [2013-03-05 21:58:10]  Matching patterns for request [/resources/themes/blue.css] are [/resources/**]
+2097191 DEBUG [2013-03-05 21:58:10]  Did not find handler method for [/resources/js/jquery-1.9.1.min.js]
+2097192 DEBUG [2013-03-05 21:58:10]  URI Template variables for request [/resources/themes/blue.css] are {}
+2097192 DEBUG [2013-03-05 21:58:10]  Matching patterns for request [/resources/js/jquery-1.9.1.min.js] are [/resources/**]
+2097192 DEBUG [2013-03-05 21:58:10]  Mapping [/resources/themes/blue.css] to HandlerExecutionChain with handler [org.springframework.web.servlet.resource.ResourceHttpRequestHandler@2660a55c] and 1 interceptor
+2097192 DEBUG [2013-03-05 21:58:10]  URI Template variables for request [/resources/js/jquery-1.9.1.min.js] are {}
+2097192 DEBUG [2013-03-05 21:58:10]  Mapping [/resources/js/jquery-1.9.1.min.js] to HandlerExecutionChain with handler [org.springframework.web.servlet.resource.ResourceHttpRequestHandler@2660a55c] and 1 interceptor
+2097192 DEBUG [2013-03-05 21:58:10]  Last-Modified value for [/resources/js/jquery-1.9.1.min.js] is: -1
+2097192 DEBUG [2013-03-05 21:58:10]  Last-Modified value for [/resources/themes/blue.css] is: -1
+2097192 DEBUG [2013-03-05 21:58:10]  Trying relative path [js/jquery-1.9.1.min.js] against base location: ServletContext resource [/resources/]
+2097192 DEBUG [2013-03-05 21:58:10]  Trying relative path [themes/blue.css] against base location: ServletContext resource [/resources/]
+2097192 DEBUG [2013-03-05 21:58:10]  Found matching resource: ServletContext resource [/resources/js/jquery-1.9.1.min.js]
+2097192 DEBUG [2013-03-05 21:58:10]  Found matching resource: ServletContext resource [/resources/themes/blue.css]
+2097192 DEBUG [2013-03-05 21:58:10]  Determined media type 'application/x-javascript' for ServletContext resource [/resources/js/jquery-1.9.1.min.js]
+2097192 DEBUG [2013-03-05 21:58:10]  Determined media type 'text/css' for ServletContext resource [/resources/themes/blue.css]
+2097193 DEBUG [2013-03-05 21:58:10]  Resource not modified - returning 304
+2097193 DEBUG [2013-03-05 21:58:10]  Resource not modified - returning 304
+2097193 DEBUG [2013-03-05 21:58:10]  Null ModelAndView returned to DispatcherServlet with name 'website-web': assuming HandlerAdapter completed request handling
+2097193 DEBUG [2013-03-05 21:58:10]  Null ModelAndView returned to DispatcherServlet with name 'website-web': assuming HandlerAdapter completed request handling
+2097193 DEBUG [2013-03-05 21:58:10]  Successfully completed request
+2097193 DEBUG [2013-03-05 21:58:10]  Successfully completed request
+2097216 DEBUG [2013-03-05 21:58:10]  DispatcherServlet with name 'website-web' processing GET request for [/favicon.ico]
+2097216 DEBUG [2013-03-05 21:58:10]  Looking up handler method for path /favicon.ico
+2097216 DEBUG [2013-03-05 21:58:10]  Did not find handler method for [/favicon.ico]
+2097216 WARN  [2013-03-05 21:58:10]  No mapping found for HTTP request with URI [/favicon.ico] in DispatcherServlet with name 'website-web'
+2097216 DEBUG [2013-03-05 21:58:10]  Successfully completed request
+2098328 DEBUG [2013-03-05 21:58:11]  DispatcherServlet with name 'website-web' processing GET request for [/]
+2098328 DEBUG [2013-03-05 21:58:11]  Looking up handler method for path /
+2098328 DEBUG [2013-03-05 21:58:11]  Returning handler method [public java.lang.String name.ixr.website.web.IndexController.index(org.springframework.ui.Model)]
+2098328 DEBUG [2013-03-05 21:58:11]  Returning cached instance of singleton bean 'indexController'
+2098329 DEBUG [2013-03-05 21:58:11]  Last-Modified value for [/] is: -1
+2098329 DEBUG [2013-03-05 21:58:11]  Parsed cookie value [en_US] into locale 'en_US'
+2098330 DEBUG [2013-03-05 21:58:11]  Requested media types are [text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8] based on Accept header types and producible media types [*/*])
+2098330 DEBUG [2013-03-05 21:58:11]  Returning [org.springframework.web.servlet.view.freemarker.FreeMarkerView: name '/index'; URL [/index.html]] based on requested media type 'text/html'
+2098330 DEBUG [2013-03-05 21:58:11]  Rendering view [org.springframework.web.servlet.view.freemarker.FreeMarkerView: name '/index'; URL [/index.html]] in DispatcherServlet with name 'website-web'
+2098330 DEBUG [2013-03-05 21:58:11]  Added model object 'springMacroRequestContext' of type [org.springframework.web.servlet.support.RequestContext] to request in view with name '/index'
+2098330 DEBUG [2013-03-05 21:58:11]  Added model object 'message' of type [java.lang.String] to request in view with name '/index'
+2098330 DEBUG [2013-03-05 21:58:11]  Added model object 'request' of type [org.springframework.web.servlet.support.RequestContext] to request in view with name '/index'
+2098330 DEBUG [2013-03-05 21:58:11]  Rendering FreeMarker template [/index.html] in FreeMarkerView '/index'
+2098330 DEBUG [2013-03-05 21:58:11]  "index.html"["en_US",utf-8,parsed]  cached copy not yet stale; using cached.
+2098331 DEBUG [2013-03-05 21:58:11]  "spring.ftl"["en_US",utf-8,parsed]  cached copy not yet stale; using cached.
+2098331 DEBUG [2013-03-05 21:58:11]  "common/header.html"["en_US",utf-8,parsed]  cached copy not yet stale; using cached.
+2098332 DEBUG [2013-03-05 21:58:11]  Successfully completed request
+2098356 DEBUG [2013-03-05 21:58:11]  DispatcherServlet with name 'website-web' processing GET request for [/resources/themes/blue.css]
+2098356 DEBUG [2013-03-05 21:58:11]  Looking up handler method for path /resources/themes/blue.css
+2098356 DEBUG [2013-03-05 21:58:11]  DispatcherServlet with name 'website-web' processing GET request for [/resources/js/jquery-1.9.1.min.js]
+2098356 DEBUG [2013-03-05 21:58:11]  Looking up handler method for path /resources/js/jquery-1.9.1.min.js
+2098356 DEBUG [2013-03-05 21:58:11]  Did not find handler method for [/resources/themes/blue.css]
+2098356 DEBUG [2013-03-05 21:58:11]  Matching patterns for request [/resources/themes/blue.css] are [/resources/**]
+2098357 DEBUG [2013-03-05 21:58:11]  URI Template variables for request [/resources/themes/blue.css] are {}
+2098357 DEBUG [2013-03-05 21:58:11]  Did not find handler method for [/resources/js/jquery-1.9.1.min.js]
+2098357 DEBUG [2013-03-05 21:58:11]  Mapping [/resources/themes/blue.css] to HandlerExecutionChain with handler [org.springframework.web.servlet.resource.ResourceHttpRequestHandler@2660a55c] and 1 interceptor
+2098357 DEBUG [2013-03-05 21:58:11]  Matching patterns for request [/resources/js/jquery-1.9.1.min.js] are [/resources/**]
+2098357 DEBUG [2013-03-05 21:58:11]  Last-Modified value for [/resources/themes/blue.css] is: -1
+2098357 DEBUG [2013-03-05 21:58:11]  URI Template variables for request [/resources/js/jquery-1.9.1.min.js] are {}
+2098357 DEBUG [2013-03-05 21:58:11]  Trying relative path [themes/blue.css] against base location: ServletContext resource [/resources/]
+2098357 DEBUG [2013-03-05 21:58:11]  Mapping [/resources/js/jquery-1.9.1.min.js] to HandlerExecutionChain with handler [org.springframework.web.servlet.resource.ResourceHttpRequestHandler@2660a55c] and 1 interceptor
+2098358 DEBUG [2013-03-05 21:58:11]  Last-Modified value for [/resources/js/jquery-1.9.1.min.js] is: -1
+2098358 DEBUG [2013-03-05 21:58:11]  Trying relative path [js/jquery-1.9.1.min.js] against base location: ServletContext resource [/resources/]
+2098358 DEBUG [2013-03-05 21:58:11]  Found matching resource: ServletContext resource [/resources/themes/blue.css]
+2098358 DEBUG [2013-03-05 21:58:11]  Determined media type 'text/css' for ServletContext resource [/resources/themes/blue.css]
+2098358 DEBUG [2013-03-05 21:58:11]  Found matching resource: ServletContext resource [/resources/js/jquery-1.9.1.min.js]
+2098358 DEBUG [2013-03-05 21:58:11]  Determined media type 'application/x-javascript' for ServletContext resource [/resources/js/jquery-1.9.1.min.js]
+2098359 DEBUG [2013-03-05 21:58:11]  Resource not modified - returning 304
+2098359 DEBUG [2013-03-05 21:58:11]  Null ModelAndView returned to DispatcherServlet with name 'website-web': assuming HandlerAdapter completed request handling
+2098359 DEBUG [2013-03-05 21:58:11]  Successfully completed request
+2098359 DEBUG [2013-03-05 21:58:11]  Resource not modified - returning 304
+2098359 DEBUG [2013-03-05 21:58:11]  Null ModelAndView returned to DispatcherServlet with name 'website-web': assuming HandlerAdapter completed request handling
+2098359 DEBUG [2013-03-05 21:58:11]  Successfully completed request
+2098384 DEBUG [2013-03-05 21:58:11]  DispatcherServlet with name 'website-web' processing GET request for [/favicon.ico]
+2098384 DEBUG [2013-03-05 21:58:11]  Looking up handler method for path /favicon.ico
+2098384 DEBUG [2013-03-05 21:58:11]  Did not find handler method for [/favicon.ico]
+2098384 WARN  [2013-03-05 21:58:11]  No mapping found for HTTP request with URI [/favicon.ico] in DispatcherServlet with name 'website-web'
+2098385 DEBUG [2013-03-05 21:58:11]  Successfully completed request
+2099312 DEBUG [2013-03-05 21:58:12]  DispatcherServlet with name 'website-web' processing GET request for [/oauth/qq_login]
+2099312 DEBUG [2013-03-05 21:58:12]  Looking up handler method for path /oauth/qq_login
+2099313 DEBUG [2013-03-05 21:58:12]  Returning handler method [public java.lang.String name.ixr.website.web.OAuthController.qq_login(javax.servlet.http.HttpServletRequest) throws com.qq.connect.QQConnectException]
+2099313 DEBUG [2013-03-05 21:58:12]  Returning cached instance of singleton bean 'OAuthController'
+2099313 DEBUG [2013-03-05 21:58:12]  Last-Modified value for [/oauth/qq_login] is: -1
+2099313 DEBUG [2013-03-05 21:58:12]  Parsed cookie value [en_US] into locale 'en_US'
+2099314 DEBUG [2013-03-05 21:58:12]  Requested media types are [text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8] based on Accept header types and producible media types [*/*])
+2099314 DEBUG [2013-03-05 21:58:12]  Returning redirect view [org.springframework.web.servlet.view.RedirectView: name 'redirect:https://graph.qq.com/oauth2.0/authorize?client_id=100387349&redirect_uri=http://www.ixr.name/oauth/qq_login_back&response_type=code&state=573c1f6ab6fe6b1ecd33bb522b219400&scope=get_user_info'; URL [https://graph.qq.com/oauth2.0/authorize?client_id=100387349&redirect_uri=http://www.ixr.name/oauth/qq_login_back&response_type=code&state=573c1f6ab6fe6b1ecd33bb522b219400&scope=get_user_info]]
+2099314 DEBUG [2013-03-05 21:58:12]  Rendering view [org.springframework.web.servlet.view.RedirectView: name 'redirect:https://graph.qq.com/oauth2.0/authorize?client_id=100387349&redirect_uri=http://www.ixr.name/oauth/qq_login_back&response_type=code&state=573c1f6ab6fe6b1ecd33bb522b219400&scope=get_user_info'; URL [https://graph.qq.com/oauth2.0/authorize?client_id=100387349&redirect_uri=http://www.ixr.name/oauth/qq_login_back&response_type=code&state=573c1f6ab6fe6b1ecd33bb522b219400&scope=get_user_info]] in DispatcherServlet with name 'website-web'
+2099315 DEBUG [2013-03-05 21:58:12]  Successfully completed request
+2100860 DEBUG [2013-03-05 21:58:14]  DispatcherServlet with name 'website-web' processing GET request for [/oauth/qq_login_back]
+2100860 DEBUG [2013-03-05 21:58:14]  Looking up handler method for path /oauth/qq_login_back
+2100861 DEBUG [2013-03-05 21:58:14]  Returning handler method [public java.lang.String name.ixr.website.web.OAuthController.qq_login_back(org.springframework.ui.Model,javax.servlet.http.HttpServletRequest) throws com.qq.connect.QQConnectException]
+2100861 DEBUG [2013-03-05 21:58:14]  Returning cached instance of singleton bean 'OAuthController'
+2100861 DEBUG [2013-03-05 21:58:14]  Last-Modified value for [/oauth/qq_login_back] is: -1
+2101472 DEBUG [2013-03-05 21:58:14]  Parsed cookie value [en_US] into locale 'en_US'
+2101473 DEBUG [2013-03-05 21:58:14]  Requested media types are [text/html, application/xhtml+xml, application/xml;q=0.9, */*;q=0.8] based on Accept header types and producible media types [*/*])
+2101473 DEBUG [2013-03-05 21:58:14]  Returning [org.springframework.web.servlet.view.json.MappingJacksonJsonView: name 'org.springframework.web.servlet.view.json.MappingJacksonJsonView#6087c171'] based on requested media type '*/*;q=0.8'
+2101473 DEBUG [2013-03-05 21:58:14]  Rendering view [org.springframework.web.servlet.view.json.MappingJacksonJsonView: name 'org.springframework.web.servlet.view.json.MappingJacksonJsonView#6087c171'] in DispatcherServlet with name 'website-web'
+2101663 DEBUG [2013-03-05 21:58:14]  Successfully completed request
+2101705 DEBUG [2013-03-05 21:58:14]  DispatcherServlet with name 'website-web' processing GET request for [/favicon.ico]
+2101705 DEBUG [2013-03-05 21:58:14]  Looking up handler method for path /favicon.ico
+2101705 DEBUG [2013-03-05 21:58:14]  Did not find handler method for [/favicon.ico]
+2101706 WARN  [2013-03-05 21:58:14]  No mapping found for HTTP request with URI [/favicon.ico] in DispatcherServlet with name 'website-web'
+2101706 DEBUG [2013-03-05 21:58:14]  Successfully completed request
+2506328 DEBUG [2013-03-05 22:04:59]  DispatcherServlet with name 'website-web' processing GET request for [/ifr_status/]
+2506328 DEBUG [2013-03-05 22:04:59]  Looking up handler method for path /ifr_status/
+2506329 DEBUG [2013-03-05 22:04:59]  Did not find handler method for [/ifr_status/]
+2506329 WARN  [2013-03-05 22:04:59]  No mapping found for HTTP request with URI [/ifr_status/] in DispatcherServlet with name 'website-web'
+2506330 DEBUG [2013-03-05 22:04:59]  Successfully completed request
