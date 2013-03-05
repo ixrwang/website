@@ -16,7 +16,7 @@
         <appender-ref ref="console" />
     </root>
     
-    <logger name="name.ixr.website.app" additivity="false">    
+    <logger name="name.ixr.website" additivity="false">    
         <priority value ="debug"/>      
         <appender-ref ref="console" />      
     </logger>
