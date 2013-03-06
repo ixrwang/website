@@ -2,63 +2,53 @@
 <html>
 <head>
 <title><@spring.message "index"/></title>
-<meta property="qc:admins" content="1522171414610266155" />
 <#include "/common/header.html">
 </head> 
 <body>
-<div id="container"><div id="wrap"><div id="header">
-<#assign back_index><@spring.message "back"/> <@spring.message "index"/></#assign>
-<div id="logo"><h1><a title="${back_index}" href="${base}/"></a></h1></div>
-<div id="contact">
-<a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=mail@ixr.name" target="_blank" ><img src="${base}/resources/images/mail24.png"></a>
-<a href="http://t.qq.com/ixr_wang" target="_blank" ><img src="${base}/resources/images/tengxun24.png"></a>
-</div></div>
-<div id="nav"><div class="topnav"><ul id="menu" class="menu">
-<li><a href="${base}/"><@spring.message "index"/></a></li>
-<li><a><@spring.message "language"/></a>
-<ul class="sub-menu">
-<li><a href="javascript:setLanguage('zh_CN')"><@spring.message "zh_CN"/></a>
-<li><a href="javascript:setLanguage('en_US')"><@spring.message "en_US"/></a>
-</ul></li>
-<li><a><@spring.message "theme"/></a>
-<ul class="sub-menu">
-<li><a href="javascript:setTheme('default')"><@spring.message "default"/></a></a>
-<li><a href="javascript:setTheme('blue')"><@spring.message "blue"/></a></a>
-</ul></li>
-<#if Session['USER_LOGIN']?exists>
-<#assign nickname>${USER_LOGIN.nickname}</#assign>
-<li><a href="${base}/logout"><@spring.message "logout"/></a></li>
-<#else>
-<#assign nickname></#assign>
-<li><a href="${base}/oauth/qq_login"><@spring.message "login"/></a></li>
-</#if>
+<div id="container">
+<div id="wrap">
+<#include "/header.html">
+<#include "/nav.html">
+<div class="clear"></div>
+<div id="map">
+<div class="position">
+当前位置：<a href="${base}/"><@spring.message "index"/></a>
+</div>
+</div>
+<div id="content">
+<div class="main">
+<ul>
+<li>
+<div class="post_date">
+<span class="date_ym">${.now?string('yyyy-MM-dd')[0..6]}</span>
+<span class="date_d">${.now?string('yyyy-MM-dd')[8..9]}</span>
+</div>
+<div class="article">
+<h2><a href="#" target="_blank" >来自冰星的生物</a> 
+</h2>
+<div class="thumbnail_box">
+<div class="thumbnail">
+<a href="#" target="_blank">
+<img width="140" height="100" src="${base}/resources/images/img.jpg"> 
+</a></div>
+</div>
+<div class="entry_post">
+<span>测试测试</span>
+<div class="clear"></div>
+</div>
+</div>
+</li>
 </ul>
-<div class="search">	
-<div class="search_site addapted" style="overflow: hidden;">	
-<form id="searchform" method="get" action="${base}/" onsubmit="return false;">
-<input type="submit" id="searchsubmit" class="button">
-<input type="text" id="s" name="uid" value="${nickname}">
-</form>
-</div></div></div></div></div>
-<div id="footer">
-<div id="footer-body">
-<!--<div id="footer-subbody">
-<div class="footerLink"></div>
-<div class="footerLink" id='footerNavgate'></div>
-<div class="footerLink" id='footer-about'></div>
-<div class="clear"></div></div>-->
-<div id="footer-content">Copyright © 1998 - ${.now[0..3]} IXR. All Rights Reserved</div>
-</div></div></div>
-<script>
-(function(menu){
-    menu.find('li').each(function(idx,obj){
-        $(obj).hover(function(){
-            $(this).find('ul').show();
-        },function(){
-            $(this).find('ul').hide();
-        });
-    });
-})($('#menu'));
-</script>
+</div>
+<div id="sidebar">
+<div class="sidebarWidget">
+    <h3>本站公告</h3>
+</div>
+</div>
+</div>
+<div class="clear"></div>
+</div>
+<#include "/footer.html">
+</div>
 </body>
 </html>
