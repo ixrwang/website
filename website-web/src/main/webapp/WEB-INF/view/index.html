@@ -12,7 +12,8 @@
 <div class="clear"></div>
 <div id="map">
 <div class="position">
-当前位置：<a href="${base}/"><@spring.message "index"/></a>
+<#assign position><@spring.message "current"/><@spring.message "location"/></#assign>
+${position} ：<a href="${base}/"><@spring.message "index"/></a>
 </div>
 </div>
 <div id="content">
@@ -33,7 +34,7 @@
 </a></div>
 </div>
 <div class="entry_post">
-<span>测试测试</span>
+<span>测试</span>
 <div class="clear"></div>
 </div>
 </div>
@@ -42,7 +43,7 @@
 </div>
 <div id="sidebar">
 <div class="sidebarWidget">
-    <h3>本站公告</h3>
+    <h3><@spring.message "site"/><@spring.message "notice"/></h3>
 </div>
 </div>
 </div>
