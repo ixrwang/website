@@ -1,4 +1,292 @@
+* {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
 body {
-    background-color: white;
-    color: black;
+    color: #333;
+    font: 14px Microsoft YaHei,微软雅黑,Arial,Tahoma, Verdana,Helvetica, sans-serif;
+    background-color: rgb(230, 230, 230);
+}
+::selection {
+    color: #0088dd;
+}
+::-moz-selection {
+    color: #0088dd;
+}
+h2 {
+    font-size: 16px;
+}
+ul, li {
+    list-style-type: none;
+}
+a:link, a:visited {
+    color: #0088dd;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: inherit;
+}
+.clear {
+    clear: both;
+}
+#container {
+    margin: 0 auto;
+    overflow: hidden;
+    background: #fff;
+    margin-top: 13px;
+    margin-bottom: 20px;
+    border: 0px solid #ccc;
+    text-align: left;
+    width: 1020px;
+    box-shadow: 0px 2px 6px rgba(100, 100, 100, 0.3);
+}
+#header {
+    width: 100%;
+    height: 100px;
+    position: relative;
+}
+
+#header #logo {
+    width: 280px;
+    height: 100px;
+    float: left;
+    text-indent: -9999px;
+    overflow: hidden;
+}
+#header #contact {
+    width:75px;
+    height:25px;
+    margin-left:905px;
+    margin-top:0px;
+    background:#FF3030;
+}
+#header #contact a {
+    margin-left:8px;
+    color:#FFF;
+}
+
+#header #contact img:hover {
+    filter: alpha(opacity=50);
+    opacity: 0.5;
+}
+
+#logo h1, #logo h2 {
+    display: block;
+    width: 100%;
+    height: 100px;
+}
+
+#logo h1 a, #logo h2 a {
+    margin-top: 20px;
+    width: 100%;
+    height: 65px;
+    display: block;
+    outline: 0;
+    background: #fff url("../images/logo.png") no-repeat;
+}
+
+#logo h1 a:hover, #logo h2 a:hover {
+    background: #fff url("../images/logo.png") no-repeat 1px 2px;
+}
+
+#header-side {
+    float: right;
+}
+
+#nav {
+    width: 100%;
+    font-size: 12px;
+    height: 35px;
+    line-height: 35px;
+    color: #666666;
+    position: relative;
+    z-index: 998;
+}
+
+#nav li a {
+    color: #FF3030;
+    display: inline-block;
+    list-style-type: none;
+    text-decoration: none;
+    height: 35px;
+    line-height: 35px;
+}
+
+#nav li a:hover
+{
+    color: #FFF;
+    background: #FF3030;
+}
+
+.topnav {float: left;width:820px;height: 35px;padding: 0;margin:0 0 10px 0px;overflow:hidden;}
+.topnav ul.menu { list-style: none; margin: 0; padding: 0; position: absolute; z-index: 999; }
+.topnav ul.menu li {
+    height: 35px;
+    float: left;
+    position: relative;
+    margin-right: 10px;
+}
+
+#nav .topnav ul.menu li a {
+    font-size: 18px;
+    padding: 0px 10px;
+}
+
+#nav .topnav ul.sub-menu {
+    display: none; position: absolute; top: 35px; left: 0; z-index: 999; width: 90px; 
+}
+
+#nav .topnav ul.sub-menu li a{
+    padding:0px;
+    width: 120px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+    background: #FFF;
+    text-align: center;
+    padding: 0px;
+    font-size: 14px;
+    border-top: 1px dashed #ddd;
+}
+
+#nav .topnav ul.sub-menu li a:hover{
+    color: #FFF;background: #FF3030;
+}
+
+#nav .topnav ul.sub-menu li.first a {
+    border-top: 0px dashed #ddd;
+}
+#nav .topnav ul.sub-menu li ul.sub-menu{top:0px;left: 120px;}
+
+#wrap {
+    padding: 0px 20px 20px 20px;
+    border-bottom: 1px solid #FF3030;
+}
+.search {
+    float: right;
+}
+
+.search_site {
+    position: absolute;
+    right: 0;
+    top: 5px;
+    width: 200px;
+    height: 24px;
+    z-index: 222;
+    background: #fff;
+    border: 1px solid #FF3030;
+
+}
+
+.search_site #searchform #s {
+    display: inline;
+    height: 24px;
+    padding: 0px 2px;
+    position: absolute;
+    top: 0px;
+    width: 176px;
+    z-index: 1;
+    font-family: 微软雅黑,Verdana, Geneva, sans-serif;
+    color: #999;
+}
+
+.search_site #searchform #searchsubmit {
+    cursor: pointer;
+    display: block;
+    height: 24px;
+    padding: 0;
+    position: absolute;
+    right: 0px;
+    text-indent: -9999px;
+    top: 0px;
+    width: 24px;
+    z-index: 2;
+    margin-left: 0px;
+    background: #FF3030 url("../images/search.png") no-repeat;
+}
+
+.search_site #searchform #searchsubmit:hover {
+    background:#FF3030 url("../images/searchHover.png") no-repeat;
+}
+
+/** 底部 **/
+#footer {
+    font-size: 12px;
+    padding: 2px 0px 0px 0px;
+    clear: both;
+    margin: 0 auto;
+    color: #919191;
+    overflow: hidden;
+    background: #FFCCFF;
+}
+
+
+#footer a {
+    color: #666666;
+}
+
+#footer a:hover {
+    color:#FF3030;
+    text-decoration:underline;
+}
+
+#footer-body {
+    margin: 0 auto;
+    overflow: hidden;
+    /*background-color: rgb(233, 233, 236);*/
+    background: #FFF;
+    padding: 20px 20px 10px 40px;
+}
+
+#footer-about {
+    background: none repeat scroll 0% 0% transparent;
+    width: 320px;
+}
+
+#footer-about ul li {
+    width: 100%;
+}
+
+#footer-logo {
+    display: block;
+    height: 50px;
+    float: left;
+    padding-right: 200px;
+    margin: 0px;
+    background: url("../images/Footer.png") right center no-repeat;
+}
+#footer-title {
+    float: left;
+    padding-top: 20px;
+    font-size: 14px;
+}
+
+#footer-content {
+    text-align: center;
+    padding: 5px;
+    margin-top: 20px;
+}
+.footerLink {
+    float: left;
+    width: 400px;
+    height: 126px;
+    padding-left: 15px;
+    background:url("../images/foot-bg.png") no-repeat scroll right center transparent;
+}
+
+.footerLink h2 {
+font-weight: normal;
+color: #FF3030;
+}
+
+.footerLink ul li {
+    float: left;
+    width: 80px;
+    margin: 5px 0px;
+}
+#footerNavgate {
+width: 150px;
+
+}
+#footerNavgate ul li {
+    width: 70px;
 }

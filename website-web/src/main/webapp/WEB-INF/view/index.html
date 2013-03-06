@@ -6,15 +6,59 @@
 <#include "/common/header.html">
 </head> 
 <body>
-<div>
+<div id="container"><div id="wrap"><div id="header">
+<#assign back_index><@spring.message "back"/> <@spring.message "index"/></#assign>
+<div id="logo"><h1><a title="${back_index}" href="${base}/"/></h1></div>
+<div id="contact">
+<a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=mail@ixr.name" target="_blank" ><img src="${base}/resources/images/mail24.png"></a>
+<a href="http://t.qq.com/ixr_wang" target="_blank" ><img src="${base}/resources/images/tengxun24.png"></a>
+</div></div>
+<div id="nav"><div class="topnav"><ul id="menu" class="menu">
+<li><a href="${base}/"><@spring.message "index"/></a></li>
+<li><a><@spring.message "language"/></a>
+<ul class="sub-menu">
+<li><a href="javascript:setLanguage('zh_CN')"><@spring.message "zh_CN"/></a>
+<li><a href="javascript:setLanguage('en_US')"><@spring.message "en_US"/></a>
+</ul></li>
+<li><a><@spring.message "theme"/></a>
+<ul class="sub-menu">
+<li><a href="javascript:setTheme('default')"><@spring.message "default"/></a></a>
+<li><a href="javascript:setTheme('blue')"><@spring.message "blue"/></a></a>
+</ul></li>
 <#if Session['USER_LOGIN']?exists>
-${USER_LOGIN.id}<br/>
-${USER_LOGIN.nickname}
-<a href="${base}/logout"><@spring.message "logout"/></a>
+<#assign nickname>${USER_LOGIN.nickname}</#assign>
+<li><a href="${base}/logout"><@spring.message "logout"/></a></li>
 <#else>
-<a href="${base}/oauth/qq_login"><@spring.message "login"/></a>
+<#assign nickname></#assign>
+<li><a href="${base}/oauth/qq_login"><@spring.message "login"/></a></li>
 </#if>
-</div>
-<#include "/common/footer.html">
+</ul>
+<div class="search">	
+<div class="search_site addapted" style="overflow: hidden;">	
+<form id="searchform" method="get" action="${base}/" onsubmit="return false;">
+<input type="submit" id="searchsubmit" class="button">
+<input type="text" id="s" name="uid" value="${nickname}">
+</form>
+</div></div></div></div></div>
+<div id="footer">
+<div id="footer-body">
+<!--<div id="footer-subbody">
+<div class="footerLink"></div>
+<div class="footerLink" id='footerNavgate'></div>
+<div class="footerLink" id='footer-about'></div>
+<div class="clear"></div></div>-->
+<div id="footer-content">Copyright © 1998 - ${.now[0..3]} IXR. All Rights Reserved</div>
+</div></div></div>
+<script>
+(function(menu){
+    menu.find('li').each(function(idx,obj){
+        $(obj).hover(function(){
+            $(this).find('ul').show();
+        },function(){
+            $(this).find('ul').hide();
+        });
+    });
+})($('#menu'));
+</script>
 </body>
 </html>
