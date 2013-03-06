@@ -10,4 +10,9 @@
     <context:component-scan base-package="name.ixr.website.web" />
     <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
     <mvc:resources mapping="/resources/**" location="/resources/" />
+    
+    <!-- Exception Resolver  -->  
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
+        <property name="defaultErrorView" value="/error/error"></property>
+    </bean>  
 </beans>
