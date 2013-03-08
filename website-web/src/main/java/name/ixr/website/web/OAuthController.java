@@ -46,7 +46,7 @@ public class OAuthController {
      * @return 
      */
     @ResponseBody
-    @RequestMapping({"/oauth/qq_login"})
+    @RequestMapping({"/oauth/weixin_url"})
     public Object weixin_url(String signature,String timestamp,String nonce,String echostr) {
         logger.info("signature" + " : " + signature);
         logger.info("timestamp" + " : " + timestamp);
