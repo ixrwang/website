@@ -9,17 +9,27 @@ import com.qq.connect.api.OpenID;
 import com.qq.connect.api.qzone.UserInfo;
 import com.qq.connect.javabeans.AccessToken;
 import com.qq.connect.oauth.Oauth;
+import java.io.StringWriter;
+import java.util.Date;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 import name.ixr.website.app.OAuthService;
 import name.ixr.website.app.UserService;
 import name.ixr.website.app.model.OAuth;
 import name.ixr.website.app.model.User;
+import name.ixr.website.web.model.WeiXinInfo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -46,13 +56,45 @@ public class OAuthController {
      * @return 
      */
     @ResponseBody
-    @RequestMapping({"/oauth/weixin_url"})
-    public Object weixin_url(String signature,String timestamp,String nonce,String echostr) {
+    @RequestMapping(value = {"/oauth/weixin"},method = RequestMethod.GET)
+    public Object weixin(HttpServletRequest request,String signature,String timestamp,String nonce,String echostr) {
+        System.out.println(request.getQueryString());
         logger.info("signature" + " : " + signature);
         logger.info("timestamp" + " : " + timestamp);
         logger.info("nonce" + " : " + nonce);
         logger.info("echostr" + " : " + echostr);
         return echostr;
+    }
+    
+    /**
+     * 微信公共账号接口
+     * @param xml 数据
+     * @return 
+     */
+    @RequestMapping(value = {"/oauth/weixin"},method = RequestMethod.POST)
+    public ResponseEntity<String> weixin(@RequestBody WeiXinInfo request) throws Exception {
+        WeiXinInfo response = new WeiXinInfo();
+        response.ToUserName = request.FromUserName;
+        response.FromUserName = request.ToUserName;
+        response.MsgType = "text";
+        switch(request.Content) {
+            case "你好" :
+                response.Content = "你也好[微笑]";
+                break;
+            case "test" :
+                response.Content = "http://rd.palmyou.com/oauth/weixin?signature=" + request.FromUserName;
+                break;
+            default:
+                response.Content = "test";
+                break;
+        }
+        response.CreateTime = request.CreateTime + 1;
+        response.FuncFlag = 0;
+        JAXBContext context = JAXBContext.newInstance(WeiXinInfo.class);
+        Marshaller marshaller = context.createMarshaller();
+        StringWriter xml = new StringWriter();
+        marshaller.marshal(response,xml);
+        return new ResponseEntity<>(xml.toString(), HttpStatus.OK);
     }
     
     @RequestMapping({"/oauth/qq_login"})

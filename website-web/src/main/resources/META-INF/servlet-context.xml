@@ -41,11 +41,6 @@
                 </bean>
             </list>
         </property>
-        <property name="defaultViews">
-            <list>
-                <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />
-            </list>
-        </property>
     </bean>
     <!-- ResourceBundleMessageSource -->
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
