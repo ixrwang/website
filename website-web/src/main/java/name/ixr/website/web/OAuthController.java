@@ -10,7 +10,6 @@ import com.qq.connect.api.qzone.UserInfo;
 import com.qq.connect.javabeans.AccessToken;
 import com.qq.connect.oauth.Oauth;
 import java.io.StringWriter;
-import java.util.Date;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.JAXBContext;
@@ -82,7 +81,7 @@ public class OAuthController {
                 response.Content = "你也好[微笑]";
                 break;
             case "test" :
-                response.Content = "http://rd.palmyou.com/oauth/weixin?signature=" + request.FromUserName;
+                response.Content = "[发呆]";
                 break;
             default:
                 response.Content = "test";
@@ -93,8 +92,10 @@ public class OAuthController {
         JAXBContext context = JAXBContext.newInstance(WeiXinInfo.class);
         Marshaller marshaller = context.createMarshaller();
         StringWriter xml = new StringWriter();
-        marshaller.marshal(response,xml);
-        return new ResponseEntity<>(xml.toString(), HttpStatus.OK);
+        marshaller.marshal(response, xml);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "text/html; charset=UTF-8");
+        return new ResponseEntity<>(xml.toString(), headers, HttpStatus.OK);
     }
     
     @RequestMapping({"/oauth/qq_login"})

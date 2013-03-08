@@ -17,7 +17,7 @@
     <!-- Freemarker Configurer -->
     <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <property name="templateLoaderPath" value="/WEB-INF/view/"/>
-        <property name="defaultEncoding" value="utf-8"/>
+        <property name="defaultEncoding" value="UTF-8"/>
         <property name="freemarkerSettings">
             <props>
                 <prop key="auto_import">spring.ftl as spring</prop>
@@ -36,7 +36,7 @@
             <list>
                 <bean id="freemarkerViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
                     <property name="suffix" value=".html" />
-                    <property name="contentType" value="text/html; charset=utf-8"/>
+                    <property name="contentType" value="text/html; charset=UTF-8"/>
                     <property name="requestContextAttribute" value="request"/>
                 </bean>
             </list>

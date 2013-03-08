@@ -11,5 +11,6 @@
         <module>website-project</module>
         <module>website-app</module>
         <module>website-web</module>
-    </modules>
+    <module>website-tools</module>
+  </modules>
 </project>
