@@ -76,17 +76,9 @@ public class OAuthController {
         response.ToUserName = request.FromUserName;
         response.FromUserName = request.ToUserName;
         response.MsgType = "text";
-        switch(request.Content) {
-            case "你好" :
-                response.Content = "你也好[微笑]";
-                break;
-            case "test" :
-                response.Content = "[发呆]";
-                break;
-            default:
-                response.Content = "test";
-                break;
-        }
+        
+        response.Content = request.Content.replaceAll("你", "你也") + "[微笑]";
+        
         response.CreateTime = request.CreateTime + 1;
         response.FuncFlag = 0;
         JAXBContext context = JAXBContext.newInstance(WeiXinInfo.class);
