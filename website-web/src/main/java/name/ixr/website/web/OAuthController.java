@@ -15,9 +15,12 @@ import name.ixr.website.app.OAuthService;
 import name.ixr.website.app.UserService;
 import name.ixr.website.app.model.OAuth;
 import name.ixr.website.app.model.User;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 开放接口
@@ -26,13 +29,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class OAuthController {
     
-    
+    private final Log logger = LogFactory.getLog(OAuthController.class);
     
     @Autowired
     private OAuthService oauthService;
     
     @Autowired
     private UserService userService;
+    
+    /**
+     * 微信进行URL认证的方法
+     * @param signature 微信加密签名
+     * @param timestamp 时间戳
+     * @param nonce 随机数
+     * @param echostr 随机字符串
+     * @return 
+     */
+    @ResponseBody
+    @RequestMapping({"/oauth/qq_login"})
+    public Object weixin_url(String signature,String timestamp,String nonce,String echostr) {
+        logger.info("signature" + " : " + signature);
+        logger.info("timestamp" + " : " + timestamp);
+        logger.info("nonce" + " : " + nonce);
+        logger.info("echostr" + " : " + echostr);
+        return echostr;
+    }
     
     @RequestMapping({"/oauth/qq_login"})
     public String qq_login(HttpServletRequest request) throws QQConnectException {
