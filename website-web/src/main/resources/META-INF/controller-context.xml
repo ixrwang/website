@@ -19,9 +19,9 @@
     <!-- 拦截器 -->
     <mvc:interceptors >    
         <mvc:interceptor>    
-            <!-- 处理URL里带入JSESSION问题 -->  
+            <!-- 对于SESSION的处理操作 -->  
             <mvc:mapping path="/**" />   
-            <bean class="name.ixr.website.web.inteceptor.UrlJSessionIdInteceptor"></bean>    
+            <bean class="name.ixr.website.web.inteceptor.SessionInteceptor"></bean>    
         </mvc:interceptor>    
     </mvc:interceptors>  
 </beans>
