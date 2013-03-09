@@ -11,7 +11,9 @@ import com.qq.connect.javabeans.AccessToken;
 import com.qq.connect.oauth.Oauth;
 import java.io.StringWriter;
 import java.util.UUID;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import name.ixr.website.app.OAuthService;
@@ -86,15 +88,13 @@ public class OAuthController {
         StringWriter xml = new StringWriter();
         marshaller.marshal(response, xml);
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", "text/html; charset=UTF-8");
+        headers.add("Content-Type", "text/xml; charset=UTF-8");
         return new ResponseEntity<>(xml.toString(), headers, HttpStatus.OK);
     }
     
     @RequestMapping({"/oauth/qq_login"})
     public String qq_login(HttpServletRequest request) throws QQConnectException {
-        String url = new Oauth().getAuthorizeURL(request);//
-        //处理JESSIONID问题
-        url = url.replace(";jsessionid=" + request.getSession().getId(), "");
+        String url = new Oauth().getAuthorizeURL(request);
         return "redirect:" + url;
     }
     

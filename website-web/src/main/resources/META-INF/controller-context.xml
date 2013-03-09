@@ -15,4 +15,13 @@
     <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
         <property name="defaultErrorView" value="/error/error"></property>
     </bean>  
+    
+    <!-- 拦截器 -->
+    <mvc:interceptors >    
+        <mvc:interceptor>    
+            <!-- 处理URL里带入JSESSION问题 -->  
+            <mvc:mapping path="/**" />   
+            <bean class="name.ixr.website.web.inteceptor.UrlJSessionIdInteceptor"></bean>    
+        </mvc:interceptor>    
+    </mvc:interceptors>  
 </beans>
