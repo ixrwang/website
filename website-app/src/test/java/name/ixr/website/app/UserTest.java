@@ -31,7 +31,8 @@ public class UserTest extends AbstractJUnit4SpringContextTests {
         user.setAccount("ixr_wang");
         user.setPassword("123456");
         user.setNickname("来自冰星的生物");
-        assert userService.deleteByAccount(user.getAccount()) >= 0;
+        //assert userService.deleteByAccount(user.getAccount()) >= 0;
         assert userService.register(user) == 1;
+        assert userService.deleteByAccount(user.getAccount()) >= 0;
     }
 }

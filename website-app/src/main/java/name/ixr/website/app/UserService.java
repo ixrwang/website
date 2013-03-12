@@ -50,4 +50,10 @@ public class UserService {
         return jdbcTemplate.update(sql, param);
     }
     
+    public int deleteById(String id) {
+        String sql = "DELETE FROM t_user WHERE id=?";
+        Object[] param = new Object[]{id};
+        return jdbcTemplate.update(sql, param);
+    }
+    
 }

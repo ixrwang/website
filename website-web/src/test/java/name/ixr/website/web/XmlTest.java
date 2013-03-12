@@ -8,7 +8,7 @@ import java.io.StringWriter;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import junit.framework.TestSuite;
-import name.ixr.website.web.model.WeiXinInfo;
+import name.ixr.website.app.model.WeiXin;
 import org.junit.Test;
 
 /**
@@ -19,10 +19,10 @@ public class XmlTest extends TestSuite{
     
     @Test
     public void test() throws Exception{
-        JAXBContext context = JAXBContext.newInstance(WeiXinInfo.class);
+        JAXBContext context = JAXBContext.newInstance(WeiXin.class);
         Marshaller marshaller = context.createMarshaller();
         StringWriter xml = new StringWriter();
-        WeiXinInfo request = new WeiXinInfo();
+        WeiXin request = new WeiXin();
         request.Content = "123";
         marshaller.marshal(request,xml);
         System.out.println(xml.toString());

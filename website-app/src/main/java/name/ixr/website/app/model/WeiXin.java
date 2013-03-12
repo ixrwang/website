@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package name.ixr.website.web.model;
+package name.ixr.website.app.model;
 
+import java.util.Date;
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -12,11 +13,19 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author IXR
  */
 @XmlRootElement(name = "xml")
-public class WeiXinInfo {
+public class WeiXin {
+    
+    public static WeiXin newResponse(WeiXin request) {
+        WeiXin response = new WeiXin();
+        response.FromUserName = request.ToUserName;
+        response.ToUserName = request.FromUserName;
+        return response;
+    }
+    
     public String ToUserName;//开发者微信号
     public String FromUserName;//发送方帐号（一个OpenID）
-    public Long CreateTime;//消息创建时间 （整型）
-    public String MsgType;//消息类型，text:文本消息,image:图片消息,location:地理位置消息,链接消息:link,event:事件推送
+    public Long CreateTime = new Date().getTime();//消息创建时间 （整型）
+    public String MsgType;//消息类型，text:文本消息,image:图片消息,location:地理位置消息,链接消息:link,event:事件推送,voice:语音信息
     public String Event;//事件类型，有ENTER(进入会话)和LOCATION(地理位置)
     public String Latitude;//地理位置维度，事件类型为LOCATION的时存在
     public String Longitude;//地理位置经度，事件类型为LOCATION的时存在
@@ -32,8 +41,11 @@ public class WeiXinInfo {
     public String Url;//消息链接
     public String MsgId;//消息id，64位整型
     
+    public String MediaId;//音频ID;//SAeRXK3u8_7K7QRBKSV2iOK4Hb8mdHRo2HGLlV_26F6sgSi-FS-ZRqh044a4tUN-
+    public String Format;//格式化;//amr
+    
     //以下是回复
-    public Integer FuncFlag = 0;//位1被标志时，星标刚收到的消息，发送是为0。
+    public Integer FuncFlag = 1;//位1被标志时，星标刚收到的消息，发送是为0。
     //回复文本消息 MsgType:text
     // ToUserName FromUserName CreateTime MsgType Content FuncFlag
     //回复音乐消息 MsgType:music

@@ -11,16 +11,15 @@ import com.qq.connect.javabeans.AccessToken;
 import com.qq.connect.oauth.Oauth;
 import java.io.StringWriter;
 import java.util.UUID;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import name.ixr.website.app.OAuthService;
 import name.ixr.website.app.UserService;
+import name.ixr.website.app.WeiXinService;
 import name.ixr.website.app.model.OAuth;
 import name.ixr.website.app.model.User;
-import name.ixr.website.web.model.WeiXinInfo;
+import name.ixr.website.app.model.WeiXin;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +47,17 @@ public class OAuthController {
     @Autowired
     private UserService userService;
     
+    @Autowired
+    private WeiXinService weiXinService;
+    
+    /**
+     * 测试一下
+     */
+    @RequestMapping(value = {"/test"},method = RequestMethod.GET)
+    public Object test(HttpServletRequest request) {
+        return "test";
+    }
+    
     /**
      * 微信进行URL认证的方法
      * @param signature 微信加密签名
@@ -58,12 +68,11 @@ public class OAuthController {
      */
     @ResponseBody
     @RequestMapping(value = {"/oauth/weixin"},method = RequestMethod.GET)
-    public Object weixin(HttpServletRequest request,String signature,String timestamp,String nonce,String echostr) {
-        System.out.println(request.getQueryString());
-        logger.info("signature" + " : " + signature);
-        logger.info("timestamp" + " : " + timestamp);
-        logger.info("nonce" + " : " + nonce);
-        logger.info("echostr" + " : " + echostr);
+    public Object weixin(String signature,String timestamp,String nonce,String echostr) {
+        logger.debug("signature" + " : " + signature);
+        logger.debug("timestamp" + " : " + timestamp);
+        logger.debug("nonce" + " : " + nonce);
+        logger.debug("echostr" + " : " + echostr);
         return echostr;
     }
     
@@ -73,23 +82,22 @@ public class OAuthController {
      * @return 
      */
     @RequestMapping(value = {"/oauth/weixin"},method = RequestMethod.POST)
-    public ResponseEntity<String> weixin(@RequestBody WeiXinInfo request) throws Exception {
-        WeiXinInfo response = new WeiXinInfo();
-        response.ToUserName = request.FromUserName;
-        response.FromUserName = request.ToUserName;
-        response.MsgType = "text";
-        
-        response.Content = request.Content.replaceAll("你", "你也") + "[微笑]";
-        
-        response.CreateTime = request.CreateTime + 1;
-        response.FuncFlag = 0;
-        JAXBContext context = JAXBContext.newInstance(WeiXinInfo.class);
-        Marshaller marshaller = context.createMarshaller();
-        StringWriter xml = new StringWriter();
-        marshaller.marshal(response, xml);
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", "text/xml; charset=UTF-8");
-        return new ResponseEntity<>(xml.toString(), headers, HttpStatus.OK);
+    public ResponseEntity<String> weixin(@RequestBody WeiXin request) throws Exception {
+        WeiXin response = weiXinService.handle(request);
+        if(response != null) {
+            if("test".equals(request.Content)) {
+                response.Content = "rd.palmyou.com/test";
+            }
+            JAXBContext context = JAXBContext.newInstance(WeiXin.class);
+            Marshaller marshaller = context.createMarshaller();
+            StringWriter xml = new StringWriter();
+            marshaller.marshal(response, xml);
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Type", "text/xml; charset=UTF-8");
+            return new ResponseEntity<>(xml.toString(), headers, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
     }
     
     @RequestMapping({"/oauth/qq_login"})
@@ -108,7 +116,7 @@ public class OAuthController {
             // 利用获取到的accessToken 去获取当前用的openid -------- start
             OpenID openIDObj =  new OpenID(accessToken);
             UserInfo qzoneUserInfo = new UserInfo(accessToken, openIDObj.getUserOpenID());
-            User user = oauthService.login(openIDObj.getUserOpenID(), OAuthService.QQ_LOGIN_TYPE);
+            User user = oauthService.login(openIDObj.getUserOpenID(), OAuthService.QQ_OPENID);
             // 如果他没有用户关联，就注册一个随机账号
             if(user == null) {
                 user = new User();
@@ -119,7 +127,7 @@ public class OAuthController {
                 userService.register(user);
                 OAuth oAuth = new OAuth();
                 oAuth.setRid(user.getId());
-                oAuth.setType(OAuthService.QQ_LOGIN_TYPE);
+                oAuth.setType(OAuthService.QQ_OPENID);
                 oAuth.setOid(openIDObj.getUserOpenID());
                 oauthService.save(oAuth);
             }
