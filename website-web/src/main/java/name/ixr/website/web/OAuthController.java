@@ -9,11 +9,8 @@ import com.qq.connect.api.OpenID;
 import com.qq.connect.api.qzone.UserInfo;
 import com.qq.connect.javabeans.AccessToken;
 import com.qq.connect.oauth.Oauth;
-import java.io.StringWriter;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
 import name.ixr.website.app.OAuthService;
 import name.ixr.website.app.UserService;
 import name.ixr.website.app.WeiXinService;
@@ -23,9 +20,6 @@ import name.ixr.website.app.model.WeiXin;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -81,23 +75,16 @@ public class OAuthController {
      * @param xml 数据
      * @return 
      */
+    @ResponseBody
     @RequestMapping(value = {"/oauth/weixin"},method = RequestMethod.POST)
-    public ResponseEntity<String> weixin(@RequestBody WeiXin request) throws Exception {
+    public Object weixin(@RequestBody WeiXin request) throws Exception {
         WeiXin response = weiXinService.handle(request);
         if(response != null) {
             if("test".equals(request.Content)) {
                 response.Content = "rd.palmyou.com/test";
             }
-            JAXBContext context = JAXBContext.newInstance(WeiXin.class);
-            Marshaller marshaller = context.createMarshaller();
-            StringWriter xml = new StringWriter();
-            marshaller.marshal(response, xml);
-            HttpHeaders headers = new HttpHeaders();
-            headers.add("Content-Type", "text/xml; charset=UTF-8");
-            return new ResponseEntity<>(xml.toString(), headers, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.OK);
         }
+        return response;
     }
     
     @RequestMapping({"/oauth/qq_login"})

@@ -29,6 +29,7 @@
         <property name="mediaTypes">
             <map>
                 <entry key="html" value="text/html" />
+                <entry key="xml" value="text/xml" />
                 <entry key="json" value="application/json" />
             </map>
         </property>
