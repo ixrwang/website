@@ -7,11 +7,18 @@
         <div data-role="page">
             <#include "/header.html">
             <div data-role="content">
-                <ul data-role="listview" data-inset="true">
-                    <li data-role="list-divider">功能</li>
-                    <li><a href="${base}/resources/login.html">登录</a></li>
-                </ul>
+                <form action="${base}/">
+                    <ul data-role="listview" data-inset="true">
+                        <li data-role="list-divider">用户登录</li>
+                        <li>
+                            <input type="text" name="user" value="" placeholder="用户名" data-theme="a">
+                            <input type="password" name="pass" value="" placeholder="密码" data-theme="a">
+                            <button type="submit">登录</button>
+                        </li>
+                    </ul>
+                </form>
             </div>
+            <#include "/footer.html">
         </div>
     </body>
 </html>

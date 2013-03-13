@@ -1,6 +1,18 @@
-<div data-role="header">
-    <a href="https://192.168.1.111/" data-icon="home" data-iconpos="notext">Home</a>
+<header data-role="header">
     <h1>首页</h1>
-    <a href="${base}/search">login</a>
-    <a href="${base}/search">login</a>
+    <a href="#bars" class="ui-icon-alt" data-icon="bars" data-iconpos="notext"></a>
+    <a href="#gear" class="ui-icon-alt" data-icon="gear" data-iconpos="notext"></a>
+</header>
+<div data-role="panel" id="bars" data-position="left" data-display="overlay">
+    <ul data-role="listview" data-inset="true">
+        <li data-role="list-divider">功能</li>
+        <li><a href="${base}/resources/login.html">登录</a></li>
+    </ul>
+</div>
+<div data-role="panel" id="gear" data-position="right" data-display="overlay">
+    <ul data-role="listview" data-inset="true">
+        <li data-role="list-divider">语言</li>
+        <li><a href="${base}/resources/login.html">中文</a></li>
+        <li><a href="${base}/resources/login.html">英文</a></li>
+    </ul>
 </div>
