@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title><@spring.message "system"/><@spring.message "error"/></title>
+        <title>error</title>
     </head> 
     <body>
         <#if exception?exists && exception.message?exists>
             ${exception.message}
         <#else>
-            <@spring.message "system"/><@spring.message "error"/>
+            error
         </#if>
     </body>
 </html>
