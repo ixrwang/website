@@ -35,4 +35,16 @@ public class UserTest extends AbstractJUnit4SpringContextTests {
         assert userService.register(user) == 1;
         assert userService.deleteByAccount(user.getAccount()) >= 0;
     }
+    @Test
+    public void register2() {
+        for (int i = 0; i < 100000; i++) {
+            logger.info("----------------------- : " + i);
+            User user = new User();
+            user.setId(UUID.randomUUID().toString());
+            user.setAccount(UUID.randomUUID().toString());
+            user.setPassword("test");
+            user.setNickname("test");
+            assert userService.register(user) == 1;
+        }
+    }
 }
