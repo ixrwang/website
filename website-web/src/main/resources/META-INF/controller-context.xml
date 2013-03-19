@@ -21,7 +21,7 @@
         <mvc:interceptor>    
             <!-- 对于SESSION的处理操作 -->  
             <mvc:mapping path="/**" />   
-            <bean class="name.ixr.website.web.inteceptor.SessionInteceptor"></bean>    
+            <bean class="name.ixr.website.web.handler.SessionHandler"></bean>    
         </mvc:interceptor>    
     </mvc:interceptors>  
 </beans>

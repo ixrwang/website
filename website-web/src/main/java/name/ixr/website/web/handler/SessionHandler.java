@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package name.ixr.website.web.inteceptor;
+package name.ixr.website.web.handler;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +13,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  * 对于SESSION的处理操作
  * @author IXR
  */
-public class SessionInteceptor extends HandlerInterceptorAdapter{
+public class SessionHandler extends HandlerInterceptorAdapter{
     
     /** 会话保持时间，单位秒 3600 为一小时 */
     private static final int MAX_INACTIVE_INTERVAL = 3600 ;
