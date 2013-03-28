@@ -1,18 +1,18 @@
-<header data-role="header">
-    <h1>首页</h1>
-    <a href="#bars" class="ui-icon-alt" data-icon="bars" data-iconpos="notext"></a>
-    <a href="#gear" class="ui-icon-alt" data-icon="gear" data-iconpos="notext"></a>
+<header id="header">
+    <div id="logo">
+        <h1><a title="首页" href="${base}/"></a></h1>
+    </div>
+    <div id="contact">
+        <a href="http://t.qq.com/ixr_wang" target="_blank"><img src="${base}/resources/img/tengxun24.png"></a>
+    </div>
+    <div class="search">
+        <div class="search_site addapted" style="overflow: hidden;">
+            <form id="searchform" method="post" action="/" class="form-search" onsubmit="return false;">
+                <div class="input-append">
+                    <input type="text"  placeholder="输入关键字搜索..." class="span2 search-query">
+                    <button type="submit" class="btn">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </header>
-<div data-role="panel" id="bars" data-position="left" data-display="overlay">
-    <ul data-role="listview" data-inset="true">
-        <li data-role="list-divider">功能</li>
-        <li><a href="${base}/resources/login.html">登录</a></li>
-    </ul>
-</div>
-<div data-role="panel" id="gear" data-position="right" data-display="overlay">
-    <ul data-role="listview" data-inset="true">
-        <li data-role="list-divider">语言</li>
-        <li><a href="${base}/resources/login.html">中文</a></li>
-        <li><a href="${base}/resources/login.html">英文</a></li>
-    </ul>
-</div>

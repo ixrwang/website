@@ -1,0 +1,105 @@
+* {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background: url("../img/bg-site.png");
+}
+/** 外置容器 **/
+#container {
+    margin: 0 auto;
+    overflow: hidden;
+    background: #fff;
+    margin-top: 13px;
+    margin-bottom: 20px;
+    border: 0px solid #ccc;
+    text-align: left;
+    width: 1020px;
+    box-shadow: 0px 2px 6px rgba(100, 100, 100, 0.3);
+}
+/** 头部信息 **/
+#header {
+    border-bottom: 1px solid #eee;
+    width: 100%;
+    height: 100px;
+    position: relative;
+}
+#header #logo {
+    width: 280px;
+    height: 100px;
+    float: left;
+    text-indent: -9999px;
+    overflow: hidden;
+}
+#logo h1, #logo h2 {
+    display: block;
+    width: 100%;
+    height: 100px;
+}
+
+#logo h1 a, #logo h2 a {
+    margin-top: 20px;
+    width: 100%;
+    height: 65px;
+    display: block;
+    outline: 0;
+    background: #fff url("../img/logo.png") no-repeat;
+}
+
+#logo h1 a:hover, #logo h2 a:hover {
+    background: #fff url("../img/logo.png") no-repeat 1px 2px;
+}
+
+#header #contact {
+    width:42px;
+    height:25px;
+    margin-left:950px;
+    margin-top:0px;
+    background:#333;
+}
+#header #contact a {
+    margin-left:8px;
+    color:#FFF;
+}
+
+#header #contact img:hover {
+    filter: alpha(opacity=50);
+    opacity: 0.5;
+}
+
+.search {
+    float: right;
+}
+
+.search_site {
+    position: absolute;
+    right: 10px;
+    top: 60px;
+    width: 265px;
+    height: 30px;
+    z-index: 222;
+}
+
+/** 主体内容 **/
+#contact {
+    /**padding: 10px 0px 0px 0px;**/
+}
+#contact-context {
+    padding: 10px;
+}
+/** 底部 **/
+#footer {
+    border-top: 1px solid #eee;
+    font-size: 12px;
+    padding: 2px 0px 0px 0px;
+    clear: both;
+    margin: 0 auto;
+    color: #777;
+    overflow: hidden;
+}
+#footer-content {
+    text-align: center;
+    padding: 5px;
+    margin-top: 5px;
+}

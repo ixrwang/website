@@ -1,22 +1,32 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>来自冰星的生物</title>
         <#include "/common/header.html">
+        <script src="http://twitter.github.com/bootstrap/assets/js/holder/holder.js"></script>
     </head>
     <body>
-        <div data-role="page">
+        <div id="container">
             <#include "/header.html">
-            <div data-role="content">
-                <form action="${base}/">
-                    <ul data-role="listview" data-inset="true">
-                        <li data-role="list-divider">用户登录</li>
-                        <li>
-                            <input type="text" name="user" value="" placeholder="用户名" data-theme="a">
-                            <input type="password" name="pass" value="" placeholder="密码" data-theme="a">
-                            <button type="submit">登录</button>
-                        </li>
-                    </ul>
-                </form>
+            <div id="contact">
+                <div id="contact-context">
+                    <#list 1..5 as i>
+                    <div class="media">
+                        <a class="pull-left">
+                            <img class="img-polaroid" data-src="holder.js/220x120">
+                        </a>
+                        <div class="media-body">
+                            <a href="#${i}">
+                            <h4 class="media-heading">Media heading</h4>
+                            </a>
+                            <p style="height: 75px;">
+                                Cras sit amet nibh libero, in gravida nulla.
+                            </p>
+                            <p class="text-right">${.now}</p>
+                        </div>
+                    </div>
+                    </#list>
+                </div>
             </div>
             <#include "/footer.html">
         </div>
