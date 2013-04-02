@@ -27,6 +27,18 @@
                         </div>
                     </div>
                     </#list>
+                    <div class="pagination pagination-centered">
+                        <ul>
+                          <li class="disabled"><a href="${base}/index?page=1&size=${1}&search=${search}">&laquo;</a></li>
+                          <#list 1..total as p>
+                          <#if p=page>
+                          <li class="active"><a>${p}</a></li>
+                          <li><a href="${base}/index.html?page=${p}&size=${size}&search=${search}">${p}</a></li>
+                          </#if>
+                          </#list>
+                          <li class="disabled"><a href="${base}/index.html?page=${total}&size=${size}&search=${search}">&raquo;</a></li>
+                        </ul>
+                      </div>
                 </div>
             </div>
             <#include "/footer.html">

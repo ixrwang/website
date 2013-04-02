@@ -26,14 +26,14 @@ public class ArticleService {
         String sql = "SELECT id,title,summary,img,created FROM t_article WHERE context like ? limit ?,?";
         int start = (page - 1) * size;
         int end = start + size;
-        Object[] param = new Object[]{"%" + search + "%", start, end};
+        Object[] param = new Object[]{search != null ? ("%" + search + "%") : "%", start, end};
         return jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<>(Article.class));
     }
 
-    public long queryCount(String search) {
+    public int queryCount(String search) {
         String sql = "SELECT COUNT(*) FROM t_article WHERE context like ?";
-        Object[] param = new Object[]{"%" + search + "%"};
-        return jdbcTemplate.queryForLong(sql, param);
+        Object[] param = new Object[]{search != null ? ("%" + search + "%") : "%"};
+        return jdbcTemplate.queryForInt(sql, param);
     }
 
     public int save(Article article) {
