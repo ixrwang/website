@@ -13,9 +13,10 @@ import java.util.Date;
 public class Article {
     
     private String id;//标识
-    private String uid;//作者
     private String title;//标题
     private String context;//内容
+    private String summary;//简介
+    private String img;//图片
     private Date created;//创建时间
     
     /**
@@ -30,20 +31,6 @@ public class Article {
      */
     public void setId(String id) {
         this.id = id;
-    }
-
-    /**
-     * @return the uid
-     */
-    public String getUid() {
-        return uid;
-    }
-
-    /**
-     * @param uid the uid to set
-     */
-    public void setUid(String uid) {
-        this.uid = uid;
     }
 
     /**
@@ -86,6 +73,34 @@ public class Article {
      */
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    /**
+     * @return the summary
+     */
+    public String getSummary() {
+        return summary;
+    }
+
+    /**
+     * @param summary the summary to set
+     */
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    /**
+     * @return the img
+     */
+    public String getImg() {
+        return img;
+    }
+
+    /**
+     * @param img the img to set
+     */
+    public void setImg(String img) {
+        this.img = img;
     }
     
 }

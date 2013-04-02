@@ -3,7 +3,6 @@
     <head>
         <title>来自冰星的生物</title>
         <#include "/common/header.html">
-        <script src="http://twitter.github.com/bootstrap/assets/js/holder/holder.js"></script>
     </head>
     <body>
         <div id="container">
@@ -12,9 +11,11 @@
                 <div id="contact-context">
                     <#list 1..5 as i>
                     <div class="media">
+                        <#if i=1>
                         <a class="pull-left">
                             <img class="img-polaroid" data-src="holder.js/220x120">
                         </a>
+                        </#if>
                         <div class="media-body">
                             <a href="#${i}">
                             <h4 class="media-heading">Media heading</h4>

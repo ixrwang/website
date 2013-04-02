@@ -101,5 +101,8 @@ body {
 #footer-content {
     text-align: center;
     padding: 5px;
-    margin-top: 5px;
+    margin-top: 10px;
+}
+#footer-content address{
+    margin-bottom: 10px;
 }

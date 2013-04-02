@@ -23,22 +23,22 @@ public class ArticleService {
     private JdbcTemplate jdbcTemplate;
 
     public List<Article> queryByPage(int page, int size, String search) {
-        String sql = "SELECT * FROM t_article WHERE context like ? limit ?,?";
+        String sql = "SELECT id,title,summary,img,created FROM t_article WHERE context like ? limit ?,?";
         int start = (page - 1) * size;
         int end = start + size;
         Object[] param = new Object[]{"%" + search + "%", start, end};
         return jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<>(Article.class));
     }
 
-    public int queryCount(String search) {
+    public long queryCount(String search) {
         String sql = "SELECT COUNT(*) FROM t_article WHERE context like ?";
         Object[] param = new Object[]{"%" + search + "%"};
-        return jdbcTemplate.queryForInt(sql, param);
+        return jdbcTemplate.queryForLong(sql, param);
     }
 
     public int save(Article article) {
-        String sql = "INSERT INTO t_article(id,uid,title,context,created) VALUES (?,?,?,?,?)";
-        Object[] param = new Object[]{article.getId(), article.getUid(), article.getTitle(), article.getContext(), article.getCreated()};
+        String sql = "INSERT INTO t_article(id,title,context,summary,img,created) VALUES (?,?,?,?,?,?)";
+        Object[] param = new Object[]{article.getId(), article.getTitle(), article.getContext(), article.getSummary(), article.getImg(), article.getCreated()};
         return jdbcTemplate.update(sql, param);
     }
 }
