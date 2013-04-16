@@ -6,7 +6,8 @@
         }, options);
         var ul = jQuery('<ul>');
         var url = options.url + (options.url.indexOf('?') > -1 ? "&" : "?");
-        var begin = options.page - options.tail > 1 ? options.page +  options.tail > options.total ? options.total - options.tail * 2 : options.page - options.tail : 1;
+        var begin = options.page +  options.tail > options.total ? options.total - options.tail * 2 : options.page - options.tail;
+        begin = begin > 1 ? begin : 1;
         var end = begin + options.tail * 2 + 1;
         ul.append('<li><a href="'+url+'page=1&size='+options.size+'">&laquo;</a></li>');
         for(var i = begin ; i < end && i <= options.total; i ++) {
