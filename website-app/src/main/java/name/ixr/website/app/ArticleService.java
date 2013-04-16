@@ -25,7 +25,7 @@ public class ArticleService {
     public List<Article> queryByPage(int page, int size, String search) {
         String sql = "SELECT id,title,summary,img,created FROM t_article WHERE context like ? limit ?,?";
         int start = (page - 1) * size;
-        int end = start + size;
+        int end = size;
         Object[] param = new Object[]{search != null ? ("%" + search + "%") : "%", start, end};
         return jdbcTemplate.query(sql, param, new BeanPropertyRowMapper<>(Article.class));
     }

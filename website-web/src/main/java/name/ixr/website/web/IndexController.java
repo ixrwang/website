@@ -24,7 +24,7 @@ public class IndexController {
     private ArticleService articleService;
 
     @RequestMapping({"/", "/index"})
-    public String index(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "20") int size, String search, Model model) {
+    public String index(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "20") int size, @RequestParam(defaultValue = "")String search, Model model) {
         int count = articleService.queryCount(search);
         int total = count / size + (count % size > 0 ? 1 : 0);
         page = page < 1 ? 1 : page > total ? total : page;

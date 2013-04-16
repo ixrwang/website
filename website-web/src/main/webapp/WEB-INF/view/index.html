@@ -3,42 +3,40 @@
     <head>
         <title>来自冰星的生物</title>
         <#include "/common/header.html">
+        <script src="${base}/resources/js/page.js"></script>
+        <script>
+            $(document).ready(function(){
+                $('#page').page({
+                    url : '${base}/index?search=${search}',
+                    page : new Number('${page}'),
+                    size : new Number('${size}'),
+                    total : new Number('${total}')
+                });
+            });
+        </script>
     </head>
     <body>
         <div id="container">
             <#include "/header.html">
             <div id="contact">
                 <div id="contact-context">
-                    <#list 1..5 as i>
+                    <#list articles as article>
                     <div class="media">
-                        <#if i=1>
                         <a class="pull-left">
                             <img class="img-polaroid" data-src="holder.js/220x120">
                         </a>
-                        </#if>
                         <div class="media-body">
-                            <a href="#${i}">
-                            <h4 class="media-heading">Media heading</h4>
+                            <a href="#${1}">
+                            <h4 class="media-heading">${article.title}</h4>
                             </a>
                             <p style="height: 75px;">
-                                Cras sit amet nibh libero, in gravida nulla.
+                                ${article.summary}
                             </p>
-                            <p class="text-right">${.now}</p>
+                            <p class="text-right">${article.created?string('yyyy-MM-dd HH:mm:ss')}</p>
                         </div>
                     </div>
                     </#list>
-                    <div class="pagination pagination-centered">
-                        <ul>
-                          <li class="disabled"><a href="${base}/index?page=1&size=${1}&search=${search}">&laquo;</a></li>
-                          <#list 1..total as p>
-                          <#if p=page>
-                          <li class="active"><a>${p}</a></li>
-                          <li><a href="${base}/index.html?page=${p}&size=${size}&search=${search}">${p}</a></li>
-                          </#if>
-                          </#list>
-                          <li class="disabled"><a href="${base}/index.html?page=${total}&size=${size}&search=${search}">&raquo;</a></li>
-                        </ul>
-                      </div>
+                    <div id='page' class="pagination pagination-centered"></div>
                 </div>
             </div>
             <#include "/footer.html">
