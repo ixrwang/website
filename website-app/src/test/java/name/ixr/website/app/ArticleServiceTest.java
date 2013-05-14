@@ -6,7 +6,7 @@ package name.ixr.website.app;
 
 import java.util.Date;
 import name.ixr.website.app.model.Article;
-import name.ixr.website.tools.DataFormat;
+import name.ixr.website.tools.format.DataFormat;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.goldpalm.rd.core.format;
+package name.ixr.website.tools.format;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

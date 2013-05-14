@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>来自冰星的生物</title>
+        <#include "/common/header.html">
+    </head>
+    <body>
+        <div id="container">
+            <header id="header">
+                <div id="logo">
+                    <h1><a title="首页" href="${base}/"></a></h1>
+                </div>
+                <div id="contact">
+                    <a href="http://t.qq.com/ixr_wang" target="_blank"><img src="${base}/resources/img/tengxun24.png"></a>
+                </div>
+                <div class="search">
+                    <div class="search_site addapted" style="overflow: hidden;">
+                        <form id="searchform" method="get" action="/legal" class="form-search">
+                            <div class="input-append">
+                                <input type="text" name="search"  placeholder="输入关键字搜索..." value="${search}" class="span2 search-query">
+                                <button type="submit" class="btn">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </header>
+            <div id="contact">
+                <div id="contact-context">
+                    <#list list as item>
+                    <div class="media">
+                        <div class="media-body">
+                            <a href="${item.href}">
+                                <h4 class="media-heading">${item.title}</h4>
+                            </a>
+                            <p style="height: 75px;">
+                                ${item.context}
+                            </p>
+                        </div>
+                    </div>
+                    </#list>
+                    用时 ${time/1000} 秒
+                </div>
+            </div>
+            <#include "/footer.html">
+        </div>
+    </body>
+</html>
