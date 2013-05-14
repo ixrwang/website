@@ -9,7 +9,10 @@ import java.util.LinkedList;
 import java.util.List;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
 import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
@@ -23,10 +26,13 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 法律
@@ -35,6 +41,60 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class LegalController {
+    
+    
+    @ResponseBody
+    @RequestMapping({"/legal/idx"})
+    public String idx() throws Exception{
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    list();
+                } catch (Exception ex) {
+                    
+                }
+            }
+        }).start();
+        return "SUCCESS";
+    }
+    
+    public static void list() throws Exception {
+        new File("/opt/lucenedata").deleteOnExit();
+        org.jsoup.nodes.Document document = Jsoup.connect("http://www.jincao.com/t1.htm").get();
+        Element element = document.select("table[width=440]").first();
+        Elements links = element.select("a");
+        for (Element link : links) {
+            String href = "http://www.jincao.com/" + link.attr("href");
+            String name = link.text().replace(" ", "");
+            System.out.println(href + "\t" + name);
+            org.jsoup.nodes.Document document2 = Jsoup.connect(href).get();
+            Element element2 = document2.select("table[width=700]").first();
+            Elements links2 = element2.select("a[href]");
+            for (Element link2 : links2) {
+                String href2 = href.substring(0, href.lastIndexOf("/") + 1) + link2.attr("href");
+                String name2 = link2.text().replace(" ", "");
+                System.out.println(href2 + "\t" + name2);
+                try {
+                    org.jsoup.nodes.Document document3 = Jsoup.connect(href2).get();
+                    add(name2, document3.html(), href2);
+                } catch (Exception ex) {
+                }
+            }
+        }
+    }
+
+    public static void add(String title, String content, String href) throws Exception {
+        Directory dir = FSDirectory.open(new File("/opt/lucenedata"));
+        IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_35, new StandardAnalyzer(Version.LUCENE_35));
+        try (IndexWriter writer = new IndexWriter(dir, config)) {
+            Document doc = new Document();
+            doc.add(new Field("title", title, Field.Store.YES, Field.Index.ANALYZED));
+            doc.add(new Field("content", content, Field.Store.YES, Field.Index.ANALYZED));
+            doc.add(new Field("href", href, Field.Store.YES, Field.Index.ANALYZED));
+            writer.addDocument(doc);
+        }
+    }
 
     public static List<jg> slt(String content) throws Exception {
         List<jg> result = new LinkedList<>();
@@ -62,12 +122,12 @@ public class LegalController {
     }
 
     @RequestMapping({"/legal"})
-    public String index(@RequestParam(defaultValue = "中华人民共和国")String search, Model model) throws Exception {
-        Long startTime = System.currentTimeMillis(); 
+    public String index(@RequestParam(defaultValue = "中华人民共和国") String search, Model model) throws Exception {
+        Long startTime = System.currentTimeMillis();
         List<jg> result = slt(search);
-        Long endTime = System.currentTimeMillis();  
+        Long endTime = System.currentTimeMillis();
         model.addAttribute("list", result);
-        model.addAttribute("time", (endTime-startTime));
+        model.addAttribute("time", (endTime - startTime));
         model.addAttribute("search", search);
         return "/legal";
     }
