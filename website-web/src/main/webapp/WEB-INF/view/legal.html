@@ -3,6 +3,18 @@
     <head>
         <title>来自冰星的生物</title>
         <#include "/common/header.html">
+        <script src="${base}/resources/js/jquery-cookie.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('.media-body').find('a').click(function(){
+                    $.post('${base}/legal/similarity',{item_id:this.id,preference:1});
+                });
+                $('#setid').click(function(){
+                    $.cookie('user_id',$('#user_id').val());
+                    window.location.reload();
+                });
+            });
+        </script>
     </head>
     <body>
         <div id="container">
@@ -26,10 +38,31 @@
             </header>
             <div id="contact">
                 <div id="contact-context">
+                    <div class="media">
+                        <div class="media-body">
+                            <div class="input-append">
+                                <input id="user_id" type="text" name="search" placeholder="请输入要切换的ID..." value="${user_id}">
+                                <button type="submit" class="btn" id="setid">切换的ID</button>
+                            </div>
+                        </div>
+                    </div>
+                    <#if 0 < recommendeds?size>
+                    <b>您可能感兴趣</b>
+                    <#list recommendeds as item>
+                    <div class="media">
+                        <div class="media-body">
+                            <a href="${item.href}" id="${item.id}">
+                                <h4 class="media-heading">${item.title}</h4>
+                            </a>
+                        </div>
+                    </div>
+                    </#list>
+                    <hr>
+                    </#if>
                     <#list list as item>
                     <div class="media">
                         <div class="media-body">
-                            <a href="${item.href}">
+                            <a href="${item.href}" id="${item.id}">
                                 <h4 class="media-heading">${item.title}</h4>
                             </a>
                             <p style="height: 75px;">

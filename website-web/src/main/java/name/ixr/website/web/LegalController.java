@@ -7,6 +7,9 @@ package name.ixr.website.web;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
@@ -25,11 +28,23 @@ import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
+import org.apache.mahout.cf.taste.impl.model.jdbc.MySQLJDBCDataModel;
+import org.apache.mahout.cf.taste.impl.neighborhood.NearestNUserNeighborhood;
+import org.apache.mahout.cf.taste.impl.recommender.GenericUserBasedRecommender;
+import org.apache.mahout.cf.taste.impl.similarity.PearsonCorrelationSimilarity;
+import org.apache.mahout.cf.taste.neighborhood.UserNeighborhood;
+import org.apache.mahout.cf.taste.recommender.RecommendedItem;
+import org.apache.mahout.cf.taste.recommender.Recommender;
+import org.apache.mahout.cf.taste.similarity.UserSimilarity;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,26 +55,134 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author IXR
  */
 @Controller
-public class LegalController {
+public class LegalController implements InitializingBean {
+
+    @Autowired
+    private DataSource source;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+    private long maxid = 0;
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        maxid = jdbcTemplate.queryForLong("SELECT MAX(user_id) FROM taste_preferences");
+    }
+    
+    @ResponseBody
+    @RequestMapping({"/legal/similarity"})
+    public String similarity(@CookieValue long user_id, long item_id, HttpServletResponse response) throws Exception {
+        List<Double> list = jdbcTemplate.queryForList("SELECT preference FROM taste_preferences WHERE user_id=? AND item_id=?", new Object[]{user_id, item_id}, Double.class);
+        if (list.size() > 0) {
+            double preference = list.get(0);
+            if (preference < 5) {
+                preference++;
+                jdbcTemplate.update("UPDATE taste_preferences SET preference=? WHERE user_id=? AND item_id=?", new Object[]{preference, user_id, item_id});
+            }
+        } else {
+            jdbcTemplate.update("INSERT INTO taste_preferences VALUES(?,?,?)", new Object[]{user_id, item_id, 1});
+        }
+        return "SUCCESS";
+    }
+
+    public static void add(String title, String content, String href) throws Exception {
+        Directory dir = FSDirectory.open(new File("/opt/lucenedata"));
+        IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_35, new StandardAnalyzer(Version.LUCENE_35));
+        try (IndexWriter writer = new IndexWriter(dir, config)) {
+            Document doc = new Document();
+            doc.add(new Field("title", title, Field.Store.YES, Field.Index.ANALYZED));
+            doc.add(new Field("content", content, Field.Store.YES, Field.Index.ANALYZED));
+            doc.add(new Field("href", href, Field.Store.YES, Field.Index.ANALYZED));
+            writer.addDocument(doc);
+        }
+    }
+
+    public List<jg> slt(String content) throws Exception {
+        List<jg> result = new LinkedList<>();
+        Directory dir = FSDirectory.open(new File("/opt/lucenedata"));
+        try (IndexReader reader = IndexReader.open(dir); IndexSearcher search = new IndexSearcher(reader)) {
+            QueryParser parser = new QueryParser(Version.LUCENE_35, "content", new StandardAnalyzer(Version.LUCENE_35));
+            Query query = parser.parse(content);
+            TopDocs tdocs = search.search(query, 10);
+            ScoreDoc[] sdocs = tdocs.scoreDocs;
+            SimpleHTMLFormatter simpleHTMLFormatter = new SimpleHTMLFormatter("<font color='red'>", "</font>");
+            Highlighter highlighter = new Highlighter(simpleHTMLFormatter, new QueryScorer(query));
+            // 这个100是指定关键字字符串的context的长度，你可以自己设定，因为不可能返回整篇正文内容 
+            highlighter.setTextFragmenter(new SimpleFragmenter(100));
+            for (ScoreDoc sdoc : sdocs) {
+                Document doc = search.doc(sdoc.doc);
+                String text = doc.get("content");
+                String title = doc.get("title");
+                org.jsoup.nodes.Document document = Jsoup.parse(text);
+                text = highlighter.getBestFragment(new StandardAnalyzer(Version.LUCENE_35), content, document.text());
+                title = highlighter.getBestFragment(new StandardAnalyzer(Version.LUCENE_35), content, title);
+                if (title == null) {
+                    title = doc.get("title");
+                }
+                if (text == null) {
+                    text = doc.get("content");
+                    if (text.length() > 100) {
+                        text = text.substring(0, 100);
+                    }
+                }
+                result.add(new jg(sdoc.doc, title, text, doc.get("href")));
+            }
+        }
+        return result;
+    }
+
+    @RequestMapping({"/legal"})
+    public String index(@CookieValue(defaultValue = "0") long user_id,@RequestParam(defaultValue = "中华人民共和国") String search, HttpServletResponse response,Model model) throws Exception {
+        if (user_id == 0) {
+            Cookie cookie = new Cookie("user_id", Long.toString(++maxid));
+            cookie.setMaxAge(Integer.MAX_VALUE);
+            response.addCookie(cookie);
+        }
+        Long startTime = System.currentTimeMillis();
+        List<jg> result = slt(search);
+        Long endTime = System.currentTimeMillis();
+        model.addAttribute("list", result);
+        model.addAttribute("time", (endTime - startTime));
+        model.addAttribute("search", search);
+        
+        //推荐
+        MySQLJDBCDataModel msqljdbcdm = new MySQLJDBCDataModel(source);//加载数据模型，供机器学习使用
+        UserSimilarity similarity = new PearsonCorrelationSimilarity(msqljdbcdm);//用户相似度/关联度，这是一种推荐方式
+        UserNeighborhood neighborhood = new NearestNUserNeighborhood(2, similarity, msqljdbcdm);
+        Recommender recommender = new GenericUserBasedRecommender(msqljdbcdm, neighborhood, similarity); //建立一、、个recommender
+        List<RecommendedItem> recommendations = recommender.recommend(user_id, 3); //给ID为1的顾客推荐3个产品
+        List<jg> recommendeds = new LinkedList<>();
+        Directory dir = FSDirectory.open(new File("/opt/lucenedata"));
+        try (IndexReader reader = IndexReader.open(dir)) {
+            for (int i = 0; i < recommendations.size(); i++) {
+                RecommendedItem recommendedItem = recommendations.get(i);
+                Document doc = reader.document((int)recommendedItem.getItemID());
+                String text = doc.get("content");
+                String title = doc.get("title");
+                recommendeds.add(new jg(recommendedItem.getItemID(), title, text, doc.get("href")));
+            }
+        }
+        model.addAttribute("recommendeds", recommendeds);
+        model.addAttribute("user_id", user_id);
+        return "/legal";
+    }
     
     
     @ResponseBody
     @RequestMapping({"/legal/idx"})
-    public String idx() throws Exception{
+    public String idx() throws Exception {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     list();
                 } catch (Exception ex) {
-                    
                 }
             }
         }).start();
         return "SUCCESS";
     }
-    
-    public static void list() throws Exception {
+
+    public void list() throws Exception {
         new File("/opt/lucenedata").deleteOnExit();
         org.jsoup.nodes.Document document = Jsoup.connect("http://www.jincao.com/t1.htm").get();
         Element element = document.select("table[width=440]").first();
@@ -84,64 +207,25 @@ public class LegalController {
         }
     }
 
-    public static void add(String title, String content, String href) throws Exception {
-        Directory dir = FSDirectory.open(new File("/opt/lucenedata"));
-        IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_35, new StandardAnalyzer(Version.LUCENE_35));
-        try (IndexWriter writer = new IndexWriter(dir, config)) {
-            Document doc = new Document();
-            doc.add(new Field("title", title, Field.Store.YES, Field.Index.ANALYZED));
-            doc.add(new Field("content", content, Field.Store.YES, Field.Index.ANALYZED));
-            doc.add(new Field("href", href, Field.Store.YES, Field.Index.ANALYZED));
-            writer.addDocument(doc);
-        }
-    }
-
-    public static List<jg> slt(String content) throws Exception {
-        List<jg> result = new LinkedList<>();
-        Directory dir = FSDirectory.open(new File("/opt/lucenedata"));
-        try (IndexReader reader = IndexReader.open(dir); IndexSearcher search = new IndexSearcher(reader)) {
-            QueryParser parser = new QueryParser(Version.LUCENE_35, "content", new StandardAnalyzer(Version.LUCENE_35));
-            Query query = parser.parse(content);
-            TopDocs tdocs = search.search(query, 10);
-            ScoreDoc[] sdocs = tdocs.scoreDocs;
-            SimpleHTMLFormatter simpleHTMLFormatter = new SimpleHTMLFormatter("<font color='red'>", "</font>");
-            Highlighter highlighter = new Highlighter(simpleHTMLFormatter, new QueryScorer(query));
-            // 这个100是指定关键字字符串的context的长度，你可以自己设定，因为不可能返回整篇正文内容 
-            highlighter.setTextFragmenter(new SimpleFragmenter(100));
-            for (ScoreDoc sdoc : sdocs) {
-                Document doc = search.doc(sdoc.doc);
-                String text = doc.get("content");
-                String title = doc.get("title");
-                org.jsoup.nodes.Document document = Jsoup.parse(text);
-                text = highlighter.getBestFragment(new StandardAnalyzer(Version.LUCENE_35), content, document.text());
-                title = highlighter.getBestFragment(new StandardAnalyzer(Version.LUCENE_35), content, title);
-                result.add(new jg(title, text, doc.get("href")));
-            }
-        }
-        return result;
-    }
-
-    @RequestMapping({"/legal"})
-    public String index(@RequestParam(defaultValue = "中华人民共和国") String search, Model model) throws Exception {
-        Long startTime = System.currentTimeMillis();
-        List<jg> result = slt(search);
-        Long endTime = System.currentTimeMillis();
-        model.addAttribute("list", result);
-        model.addAttribute("time", (endTime - startTime));
-        model.addAttribute("search", search);
-        return "/legal";
-    }
-
     public static class jg {
 
         public jg() {
         }
 
-        ;
-    public jg(String title, String context, String href) {
+        public jg(long id, String title, String context, String href) {
+            this.id = id;
             this.title = title;
             this.context = context;
             this.href = href;
+        }
+        private long id;
+
+        public long getId() {
+            return id;
+        }
+
+        public void setId(long id) {
+            this.id = id;
         }
         private String title;
         private String context;
