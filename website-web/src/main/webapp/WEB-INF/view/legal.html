@@ -6,9 +6,15 @@
         <script src="${base}/resources/js/jquery-cookie.js"></script>
         <script type="text/javascript">
             $(document).ready(function(){
+                $.ajaxSetup({
+                    async : false
+                });
                 $('.media-body').find('a').click(function(){
                     $.post('${base}/legal/boost',{id:this.id});
                     $.post('${base}/legal/similarity',{item_id:this.id,preference:1});
+                    window.open(this.href);
+                    window.location.reload();
+                    return false;
                 });
                 $('#setid').click(function(){
                     $.cookie('user_id',$('#user_id').val());
@@ -69,6 +75,7 @@
                             <p style="height: 75px;">
                                 ${item.context}
                             </p>
+                            <p class="text-right">点击：${item.boost}次</p>
                         </div>
                     </div>
                     </#list>

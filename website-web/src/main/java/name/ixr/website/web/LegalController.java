@@ -28,6 +28,8 @@ import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.NumericRangeQuery;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.Sort;
+import org.apache.lucene.search.SortField;
 import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.search.highlight.Highlighter;
@@ -62,7 +64,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author IXR
  */
 @Controller
-public class LegalController{
+public class LegalController {
 
     @Autowired
     private DataSource source;
@@ -84,7 +86,7 @@ public class LegalController{
         }
         return "SUCCESS";
     }
-    
+
     @ResponseBody
     @RequestMapping({"/legal/boost"})
     public String boost(long id, HttpServletResponse response) throws Exception {
@@ -92,6 +94,7 @@ public class LegalController{
         IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_35, new StandardAnalyzer(Version.LUCENE_35));
         Document document = null;
         Query query = NumericRangeQuery.newLongRange("id", id, id, true, true);
+        query.setBoost(id);
         try (IndexReader reader = IndexReader.open(dir); IndexSearcher searcher = new IndexSearcher(reader)) {
             TopDocs tdocs = searcher.search(query, 1);
             ScoreDoc[] sdocs = tdocs.scoreDocs;
@@ -99,31 +102,34 @@ public class LegalController{
                 document = searcher.doc(sdoc.doc);
             }
         }
-        if(document != null) {
+        if (document != null) {
             try (IndexWriter writer = new IndexWriter(dir, config)) {
-                document.setBoost(document.getBoost() + 1);
                 writer.deleteDocuments(query);
-                writer.forceMergeDeletes();
+                long boost = Long.parseLong(document.get("boost"));
+                document.removeField("boost");
+                document.add(new NumericField("boost", Field.Store.YES, true).setLongValue(boost + 1));
                 writer.addDocument(document);
+                System.out.println(writer.maxDoc());
             }
         }
         return "SUCCESS";
     }
-    
     final static byte[] lock = new byte[0];
+
     public static void add(String title, String content, String href) throws Exception {
         Directory dir = FSDirectory.open(new File("/opt/lucenedata"));
         IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_35, new StandardAnalyzer(Version.LUCENE_35));
         try (IndexWriter writer = new IndexWriter(dir, config)) {
             Document doc = new Document();
-            synchronized(lock) {
+            synchronized (lock) {
                 doc.add(new NumericField("id", Field.Store.YES, true).setLongValue(id++));
                 doc.add(new Field("title", title, Field.Store.YES, Field.Index.ANALYZED));
                 doc.add(new Field("content", content, Field.Store.YES, Field.Index.ANALYZED));
                 doc.add(new Field("href", href, Field.Store.YES, Field.Index.ANALYZED));
+                doc.add(new NumericField("boost", Field.Store.YES, true).setLongValue(0));
                 writer.addDocument(doc);
             }
-            
+
         }
     }
 
@@ -133,7 +139,7 @@ public class LegalController{
         try (IndexReader reader = IndexReader.open(dir); IndexSearcher search = new IndexSearcher(reader)) {
             QueryParser parser = new QueryParser(Version.LUCENE_35, "content", new StandardAnalyzer(Version.LUCENE_35));
             Query query = parser.parse(content);
-            TopDocs tdocs = search.search(query, 10);
+            TopDocs tdocs = search.search(query, 10, new Sort(new SortField("boost", SortField.LONG, true)));
             ScoreDoc[] sdocs = tdocs.scoreDocs;
             SimpleHTMLFormatter simpleHTMLFormatter = new SimpleHTMLFormatter("<font color='red'>", "</font>");
             Highlighter highlighter = new Highlighter(simpleHTMLFormatter, new QueryScorer(query));
@@ -143,7 +149,8 @@ public class LegalController{
                 Document doc = search.doc(sdoc.doc);
                 String text = doc.get("content");
                 String title = doc.get("title");
-                int id = Integer.parseInt(doc.get("id"));
+                long id = Long.parseLong(doc.get("id"));
+                long boost = Long.parseLong(doc.get("boost"));
                 org.jsoup.nodes.Document document = Jsoup.parse(text);
                 text = highlighter.getBestFragment(new StandardAnalyzer(Version.LUCENE_35), content, document.text());
                 title = highlighter.getBestFragment(new StandardAnalyzer(Version.LUCENE_35), content, title);
@@ -156,7 +163,7 @@ public class LegalController{
                         text = text.substring(0, 100);
                     }
                 }
-                result.add(new jg(id, title, text, doc.get("href")));
+                result.add(new jg(id, title, text, doc.get("href"), boost));
             }
         }
         return result;
@@ -200,7 +207,7 @@ public class LegalController{
             List<RecommendedItem> recommendations = recommander.recommend(user_id, 3); //给ID为1的顾客推荐3个产品
             Directory dir = FSDirectory.open(new File("/opt/lucenedata"));
             try (IndexReader reader = IndexReader.open(dir); IndexSearcher searcher = new IndexSearcher(reader)) {
-                BooleanQuery query = new BooleanQuery(); 
+                BooleanQuery query = new BooleanQuery();
                 for (int i = 0; i < recommendations.size(); i++) {
                     RecommendedItem recommendedItem = recommendations.get(i);
                     query.add(NumericRangeQuery.newLongRange("id", recommendedItem.getItemID(), recommendedItem.getItemID(), true, true), BooleanClause.Occur.SHOULD);
@@ -211,8 +218,9 @@ public class LegalController{
                     Document doc = searcher.doc(sdoc.doc);
                     String text = doc.get("content");
                     String title = doc.get("title");
-                    int id = Integer.parseInt(doc.get("id"));
-                    recommendeds.add(new jg(id, title, text, doc.get("href")));
+                    long id = Long.parseLong(doc.get("id"));
+                    long boost = Long.parseLong(doc.get("boost"));
+                    recommendeds.add(new jg(id, title, text, doc.get("href"), boost));
                 }
             }
         } catch (Exception ex) {
@@ -236,8 +244,8 @@ public class LegalController{
         }).start();
         return "SUCCESS";
     }
-    
     static long id = 1;
+
     public void list() throws Exception {
         new File("/opt/lucenedata").deleteOnExit();
         org.jsoup.nodes.Document document = Jsoup.connect("http://www.jincao.com/t1.htm").get();
@@ -275,13 +283,23 @@ public class LegalController{
         public jg() {
         }
 
-        public jg(long id, String title, String context, String href) {
+        public jg(long id, String title, String context, String href, float boost) {
             this.id = id;
             this.title = title;
             this.context = context;
             this.href = href;
+            this.boost = boost;
         }
         private long id;
+        private float boost;
+
+        public float getBoost() {
+            return boost;
+        }
+
+        public void setBoost(float boost) {
+            this.boost = boost;
+        }
 
         public long getId() {
             return id;
