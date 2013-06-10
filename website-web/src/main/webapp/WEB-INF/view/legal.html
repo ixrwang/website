@@ -7,6 +7,7 @@
         <script type="text/javascript">
             $(document).ready(function(){
                 $('.media-body').find('a').click(function(){
+                    $.post('${base}/legal/boost',{id:this.id});
                     $.post('${base}/legal/similarity',{item_id:this.id,preference:1});
                 });
                 $('#setid').click(function(){
@@ -51,7 +52,7 @@
                     <#list recommendeds as item>
                     <div class="media">
                         <div class="media-body">
-                            <a href="${item.href}" id="${item.id}">
+                            <a href="${item.href}" id="${item.id?c}">
                                 <h4 class="media-heading">${item.title}</h4>
                             </a>
                         </div>
@@ -62,7 +63,7 @@
                     <#list list as item>
                     <div class="media">
                         <div class="media-body">
-                            <a href="${item.href}" id="${item.id}">
+                            <a href="${item.href}" id="${item.id?c}">
                                 <h4 class="media-heading">${item.title}</h4>
                             </a>
                             <p style="height: 75px;">

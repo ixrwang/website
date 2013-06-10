@@ -8,19 +8,27 @@ import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
+import org.apache.lucene.document.NumericField;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.QueryParser;
+import org.apache.lucene.search.BooleanClause;
+import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.NumericRangeQuery;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.search.highlight.Highlighter;
 import org.apache.lucene.search.highlight.QueryScorer;
@@ -76,16 +84,46 @@ public class LegalController{
         }
         return "SUCCESS";
     }
-
+    
+    @ResponseBody
+    @RequestMapping({"/legal/boost"})
+    public String boost(long id, HttpServletResponse response) throws Exception {
+        Directory dir = FSDirectory.open(new File("/opt/lucenedata"));
+        IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_35, new StandardAnalyzer(Version.LUCENE_35));
+        Document document = null;
+        Query query = NumericRangeQuery.newLongRange("id", id, id, true, true);
+        try (IndexReader reader = IndexReader.open(dir); IndexSearcher searcher = new IndexSearcher(reader)) {
+            TopDocs tdocs = searcher.search(query, 1);
+            ScoreDoc[] sdocs = tdocs.scoreDocs;
+            for (ScoreDoc sdoc : sdocs) {
+                document = searcher.doc(sdoc.doc);
+            }
+        }
+        if(document != null) {
+            try (IndexWriter writer = new IndexWriter(dir, config)) {
+                document.setBoost(document.getBoost() + 1);
+                writer.deleteDocuments(query);
+                writer.forceMergeDeletes();
+                writer.addDocument(document);
+            }
+        }
+        return "SUCCESS";
+    }
+    
+    final static byte[] lock = new byte[0];
     public static void add(String title, String content, String href) throws Exception {
         Directory dir = FSDirectory.open(new File("/opt/lucenedata"));
         IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_35, new StandardAnalyzer(Version.LUCENE_35));
         try (IndexWriter writer = new IndexWriter(dir, config)) {
             Document doc = new Document();
-            doc.add(new Field("title", title, Field.Store.YES, Field.Index.ANALYZED));
-            doc.add(new Field("content", content, Field.Store.YES, Field.Index.ANALYZED));
-            doc.add(new Field("href", href, Field.Store.YES, Field.Index.ANALYZED));
-            writer.addDocument(doc);
+            synchronized(lock) {
+                doc.add(new NumericField("id", Field.Store.YES, true).setLongValue(id++));
+                doc.add(new Field("title", title, Field.Store.YES, Field.Index.ANALYZED));
+                doc.add(new Field("content", content, Field.Store.YES, Field.Index.ANALYZED));
+                doc.add(new Field("href", href, Field.Store.YES, Field.Index.ANALYZED));
+                writer.addDocument(doc);
+            }
+            
         }
     }
 
@@ -105,6 +143,7 @@ public class LegalController{
                 Document doc = search.doc(sdoc.doc);
                 String text = doc.get("content");
                 String title = doc.get("title");
+                int id = Integer.parseInt(doc.get("id"));
                 org.jsoup.nodes.Document document = Jsoup.parse(text);
                 text = highlighter.getBestFragment(new StandardAnalyzer(Version.LUCENE_35), content, document.text());
                 title = highlighter.getBestFragment(new StandardAnalyzer(Version.LUCENE_35), content, title);
@@ -117,7 +156,7 @@ public class LegalController{
                         text = text.substring(0, 100);
                     }
                 }
-                result.add(new jg(sdoc.doc, title, text, doc.get("href")));
+                result.add(new jg(id, title, text, doc.get("href")));
             }
         }
         return result;
@@ -160,13 +199,20 @@ public class LegalController{
         try {
             List<RecommendedItem> recommendations = recommander.recommend(user_id, 3); //给ID为1的顾客推荐3个产品
             Directory dir = FSDirectory.open(new File("/opt/lucenedata"));
-            try (IndexReader reader = IndexReader.open(dir)) {
+            try (IndexReader reader = IndexReader.open(dir); IndexSearcher searcher = new IndexSearcher(reader)) {
+                BooleanQuery query = new BooleanQuery(); 
                 for (int i = 0; i < recommendations.size(); i++) {
                     RecommendedItem recommendedItem = recommendations.get(i);
-                    Document doc = reader.document((int) recommendedItem.getItemID());
+                    query.add(NumericRangeQuery.newLongRange("id", recommendedItem.getItemID(), recommendedItem.getItemID(), true, true), BooleanClause.Occur.SHOULD);
+                }
+                TopDocs tdocs = searcher.search(query, recommendations.size());
+                ScoreDoc[] sdocs = tdocs.scoreDocs;
+                for (ScoreDoc sdoc : sdocs) {
+                    Document doc = searcher.doc(sdoc.doc);
                     String text = doc.get("content");
                     String title = doc.get("title");
-                    recommendeds.add(new jg(recommendedItem.getItemID(), title, text, doc.get("href")));
+                    int id = Integer.parseInt(doc.get("id"));
+                    recommendeds.add(new jg(id, title, text, doc.get("href")));
                 }
             }
         } catch (Exception ex) {
@@ -190,29 +236,37 @@ public class LegalController{
         }).start();
         return "SUCCESS";
     }
-
+    
+    static long id = 1;
     public void list() throws Exception {
         new File("/opt/lucenedata").deleteOnExit();
         org.jsoup.nodes.Document document = Jsoup.connect("http://www.jincao.com/t1.htm").get();
         Element element = document.select("table[width=440]").first();
         Elements links = element.select("a");
+        id = 1;
+        ExecutorService pool = Executors.newFixedThreadPool(10);
         for (Element link : links) {
-            String href = "http://www.jincao.com/" + link.attr("href");
+            final String href = "http://www.jincao.com/" + link.attr("href");
             String name = link.text().replace(" ", "");
             System.out.println(href + "\t" + name);
             org.jsoup.nodes.Document document2 = Jsoup.connect(href).get();
             Element element2 = document2.select("table[width=700]").first();
-            Elements links2 = element2.select("a[href]");
-            for (Element link2 : links2) {
-                String href2 = href.substring(0, href.lastIndexOf("/") + 1) + link2.attr("href");
-                String name2 = link2.text().replace(" ", "");
-                System.out.println(href2 + "\t" + name2);
-                try {
-                    org.jsoup.nodes.Document document3 = Jsoup.connect(href2).get();
-                    add(name2, document3.html(), href2);
-                } catch (Exception ex) {
+            final Elements links2 = element2.select("a[href]");
+            pool.execute(new Runnable() {
+                @Override
+                public void run() {
+                    for (Element link2 : links2) {
+                        String href2 = href.substring(0, href.lastIndexOf("/") + 1) + link2.attr("href");
+                        String name2 = link2.text().replace(" ", "");
+                        System.out.println(href2 + "\t" + name2);
+                        try {
+                            org.jsoup.nodes.Document document3 = Jsoup.connect(href2).get();
+                            add(name2, document3.html(), href2);
+                        } catch (Exception ex) {
+                        }
+                    }
                 }
-            }
+            });
         }
     }
 
