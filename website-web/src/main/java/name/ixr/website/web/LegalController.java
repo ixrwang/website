@@ -141,7 +141,7 @@ public class LegalController{
 
         //推荐
         MySQLJDBCDataModel msqljdbcdm = new MySQLJDBCDataModel(source);//加载数据模型，供机器学习使用
-        Factorizer factorizer = new ExpectationMaximizationSVDFactorizer(msqljdbcdm, 20, 50);
+        Factorizer factorizer = new ExpectationMaximizationSVDFactorizer(msqljdbcdm, 1, 50);
         // 获取SVD分解结果（用户特征矩阵和产品特征矩阵）
         final Factorization factorization = factorizer.factorize();
         // 创建推荐引擎
