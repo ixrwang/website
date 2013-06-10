@@ -126,7 +126,7 @@ public class LegalController{
     @RequestMapping({"/legal"})
     public String index(@CookieValue(defaultValue = "0") long user_id, @RequestParam(defaultValue = "中华人民共和国") String search, HttpServletResponse response, Model model) throws Exception {
         if (user_id == 0) {
-            user_id = jdbcTemplate.queryForLong("SELECT MAX(user_id) FROM taste_preferences");
+            user_id = jdbcTemplate.queryForLong("SELECT MAX(user_id) FROM taste_preferences") + 1;
             Cookie cookie = new Cookie("user_id", Long.toString(user_id));
             cookie.setMaxAge(Integer.MAX_VALUE);
             response.addCookie(cookie);
