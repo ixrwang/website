@@ -167,17 +167,21 @@ public class LegalController implements InitializingBean {
                         return factorization;
                 }
         });
-        List<RecommendedItem> recommendations = recommander.recommend(user_id, 3); //给ID为1的顾客推荐3个产品
         List<jg> recommendeds = new LinkedList<>();
-        Directory dir = FSDirectory.open(new File("/opt/lucenedata"));
-        try (IndexReader reader = IndexReader.open(dir)) {
-            for (int i = 0; i < recommendations.size(); i++) {
-                RecommendedItem recommendedItem = recommendations.get(i);
-                Document doc = reader.document((int)recommendedItem.getItemID());
-                String text = doc.get("content");
-                String title = doc.get("title");
-                recommendeds.add(new jg(recommendedItem.getItemID(), title, text, doc.get("href")));
+        try{
+            List<RecommendedItem> recommendations = recommander.recommend(user_id, 3); //给ID为1的顾客推荐3个产品
+            Directory dir = FSDirectory.open(new File("/opt/lucenedata"));
+            try (IndexReader reader = IndexReader.open(dir)) {
+                for (int i = 0; i < recommendations.size(); i++) {
+                    RecommendedItem recommendedItem = recommendations.get(i);
+                    Document doc = reader.document((int)recommendedItem.getItemID());
+                    String text = doc.get("content");
+                    String title = doc.get("title");
+                    recommendeds.add(new jg(recommendedItem.getItemID(), title, text, doc.get("href")));
+                }
             }
+        }catch (Exception ex) {
+            
         }
         model.addAttribute("recommendeds", recommendeds);
         model.addAttribute("user_id", user_id);
