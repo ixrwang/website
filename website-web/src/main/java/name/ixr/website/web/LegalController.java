@@ -30,22 +30,15 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 import org.apache.mahout.cf.taste.impl.model.jdbc.MySQLJDBCDataModel;
-import org.apache.mahout.cf.taste.impl.neighborhood.NearestNUserNeighborhood;
-import org.apache.mahout.cf.taste.impl.recommender.GenericUserBasedRecommender;
 import org.apache.mahout.cf.taste.impl.recommender.svd.ExpectationMaximizationSVDFactorizer;
 import org.apache.mahout.cf.taste.impl.recommender.svd.Factorization;
 import org.apache.mahout.cf.taste.impl.recommender.svd.Factorizer;
 import org.apache.mahout.cf.taste.impl.recommender.svd.PersistenceStrategy;
 import org.apache.mahout.cf.taste.impl.recommender.svd.SVDRecommender;
-import org.apache.mahout.cf.taste.impl.similarity.PearsonCorrelationSimilarity;
-import org.apache.mahout.cf.taste.neighborhood.UserNeighborhood;
 import org.apache.mahout.cf.taste.recommender.RecommendedItem;
-import org.apache.mahout.cf.taste.recommender.Recommender;
-import org.apache.mahout.cf.taste.similarity.UserSimilarity;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
@@ -61,19 +54,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author IXR
  */
 @Controller
-public class LegalController implements InitializingBean {
+public class LegalController{
 
     @Autowired
     private DataSource source;
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    private long maxid = 0;
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        maxid = jdbcTemplate.queryForLong("SELECT MAX(user_id) FROM taste_preferences");
-    }
-    
     @ResponseBody
     @RequestMapping({"/legal/similarity"})
     public String similarity(@CookieValue long user_id, long item_id, HttpServletResponse response) throws Exception {
@@ -137,12 +124,13 @@ public class LegalController implements InitializingBean {
     }
 
     @RequestMapping({"/legal"})
-    public String index(@CookieValue(defaultValue = "0") long user_id,@RequestParam(defaultValue = "中华人民共和国") String search, HttpServletResponse response,Model model) throws Exception {
+    public String index(@CookieValue(defaultValue = "0") long user_id, @RequestParam(defaultValue = "中华人民共和国") String search, HttpServletResponse response, Model model) throws Exception {
         if (user_id == 0) {
-            user_id = ++maxid;
+            user_id = jdbcTemplate.queryForLong("SELECT MAX(user_id) FROM taste_preferences");
             Cookie cookie = new Cookie("user_id", Long.toString(user_id));
             cookie.setMaxAge(Integer.MAX_VALUE);
             response.addCookie(cookie);
+            similarity(user_id, 0, response);
         }
         Long startTime = System.currentTimeMillis();
         List<jg> result = slt(search);
@@ -150,7 +138,7 @@ public class LegalController implements InitializingBean {
         model.addAttribute("list", result);
         model.addAttribute("time", (endTime - startTime));
         model.addAttribute("search", search);
-        
+
         //推荐
         MySQLJDBCDataModel msqljdbcdm = new MySQLJDBCDataModel(source);//加载数据模型，供机器学习使用
         Factorizer factorizer = new ExpectationMaximizationSVDFactorizer(msqljdbcdm, 20, 50);
@@ -158,37 +146,36 @@ public class LegalController implements InitializingBean {
         final Factorization factorization = factorizer.factorize();
         // 创建推荐引擎
         SVDRecommender recommander = new SVDRecommender(msqljdbcdm, factorizer, new PersistenceStrategy() {
-                @Override
-                public void maybePersist(Factorization factorization) throws IOException {
-                        throw new IOException("not rewritable!");
-                }
-                @Override
-                public Factorization load() throws IOException {
-                        return factorization;
-                }
+            @Override
+            public void maybePersist(Factorization factorization) throws IOException {
+                throw new IOException("not rewritable!");
+            }
+
+            @Override
+            public Factorization load() throws IOException {
+                return factorization;
+            }
         });
         List<jg> recommendeds = new LinkedList<>();
-        try{
+        try {
             List<RecommendedItem> recommendations = recommander.recommend(user_id, 3); //给ID为1的顾客推荐3个产品
             Directory dir = FSDirectory.open(new File("/opt/lucenedata"));
             try (IndexReader reader = IndexReader.open(dir)) {
                 for (int i = 0; i < recommendations.size(); i++) {
                     RecommendedItem recommendedItem = recommendations.get(i);
-                    Document doc = reader.document((int)recommendedItem.getItemID());
+                    Document doc = reader.document((int) recommendedItem.getItemID());
                     String text = doc.get("content");
                     String title = doc.get("title");
                     recommendeds.add(new jg(recommendedItem.getItemID(), title, text, doc.get("href")));
                 }
             }
-        }catch (Exception ex) {
-            
+        } catch (Exception ex) {
         }
         model.addAttribute("recommendeds", recommendeds);
         model.addAttribute("user_id", user_id);
         return "/legal";
     }
-    
-    
+
     @ResponseBody
     @RequestMapping({"/legal/idx"})
     public String idx() throws Exception {
