@@ -133,7 +133,8 @@ public class LegalController implements InitializingBean {
     @RequestMapping({"/legal"})
     public String index(@CookieValue(defaultValue = "0") long user_id,@RequestParam(defaultValue = "中华人民共和国") String search, HttpServletResponse response,Model model) throws Exception {
         if (user_id == 0) {
-            Cookie cookie = new Cookie("user_id", Long.toString(++maxid));
+            user_id = ++maxid;
+            Cookie cookie = new Cookie("user_id", Long.toString(user_id));
             cookie.setMaxAge(Integer.MAX_VALUE);
             response.addCookie(cookie);
         }
