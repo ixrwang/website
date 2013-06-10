@@ -5,6 +5,7 @@
 package name.ixr.website.web;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import javax.servlet.http.Cookie;
@@ -31,6 +32,11 @@ import org.apache.lucene.util.Version;
 import org.apache.mahout.cf.taste.impl.model.jdbc.MySQLJDBCDataModel;
 import org.apache.mahout.cf.taste.impl.neighborhood.NearestNUserNeighborhood;
 import org.apache.mahout.cf.taste.impl.recommender.GenericUserBasedRecommender;
+import org.apache.mahout.cf.taste.impl.recommender.svd.ExpectationMaximizationSVDFactorizer;
+import org.apache.mahout.cf.taste.impl.recommender.svd.Factorization;
+import org.apache.mahout.cf.taste.impl.recommender.svd.Factorizer;
+import org.apache.mahout.cf.taste.impl.recommender.svd.PersistenceStrategy;
+import org.apache.mahout.cf.taste.impl.recommender.svd.SVDRecommender;
 import org.apache.mahout.cf.taste.impl.similarity.PearsonCorrelationSimilarity;
 import org.apache.mahout.cf.taste.neighborhood.UserNeighborhood;
 import org.apache.mahout.cf.taste.recommender.RecommendedItem;
@@ -147,10 +153,21 @@ public class LegalController implements InitializingBean {
         
         //推荐
         MySQLJDBCDataModel msqljdbcdm = new MySQLJDBCDataModel(source);//加载数据模型，供机器学习使用
-        UserSimilarity similarity = new PearsonCorrelationSimilarity(msqljdbcdm);//用户相似度/关联度，这是一种推荐方式
-        UserNeighborhood neighborhood = new NearestNUserNeighborhood(2, similarity, msqljdbcdm);
-        Recommender recommender = new GenericUserBasedRecommender(msqljdbcdm, neighborhood, similarity); //建立一、、个recommender
-        List<RecommendedItem> recommendations = recommender.recommend(user_id, 3); //给ID为1的顾客推荐3个产品
+        Factorizer factorizer = new ExpectationMaximizationSVDFactorizer(msqljdbcdm, 20, 50);
+        // 获取SVD分解结果（用户特征矩阵和产品特征矩阵）
+        final Factorization factorization = factorizer.factorize();
+        // 创建推荐引擎
+        SVDRecommender recommander = new SVDRecommender(msqljdbcdm, factorizer, new PersistenceStrategy() {
+                @Override
+                public void maybePersist(Factorization factorization) throws IOException {
+                        throw new IOException("not rewritable!");
+                }
+                @Override
+                public Factorization load() throws IOException {
+                        return factorization;
+                }
+        });
+        List<RecommendedItem> recommendations = recommander.recommend(user_id, 3); //给ID为1的顾客推荐3个产品
         List<jg> recommendeds = new LinkedList<>();
         Directory dir = FSDirectory.open(new File("/opt/lucenedata"));
         try (IndexReader reader = IndexReader.open(dir)) {
